@@ -10,15 +10,19 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.tamersarioglu.pairedup.utils.Constants
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
     name = Constants.SETTINGS_PREFERENCES
 )
 
-class SettingsDataStore(private val context: Context) {
+class SettingsDataStore @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
 
     private object PreferencesKeys{
         val DARK_THEME = booleanPreferencesKey(Constants.DARK_THEME_KEY)

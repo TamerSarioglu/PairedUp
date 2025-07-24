@@ -10,13 +10,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.tv.material3.OutlinedButtonDefaults
 import com.tamersarioglu.pairedup.presentation.components.LoadingScreen
 import com.tamersarioglu.pairedup.presentation.ui.theme.AccentBlue
 import com.tamersarioglu.pairedup.presentation.ui.theme.AccentGreen
@@ -74,7 +74,6 @@ fun HomeScreen(
         ) {
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Welcome Section
             WelcomeSection(
                 hasScores = uiState.hasScores,
                 recentHighScore = uiState.recentHighScore
@@ -82,7 +81,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Main Menu Buttons
             MenuButtons(
                 onNavigateToGameSetup = onNavigateToGameSetup,
                 onNavigateToScores = onNavigateToScores,
@@ -92,10 +90,8 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Game Rules Card
             GameRulesCard()
 
-            // Error handling
             uiState.error?.let { error ->
                 LaunchedEffect(error) {
                     kotlinx.coroutines.delay(5000)
@@ -219,7 +215,6 @@ private fun MenuButtons(
             .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // Start Game Button
         Button(
             onClick = onNavigateToGameSetup,
             modifier = Modifier
@@ -248,8 +243,11 @@ private fun MenuButtons(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),
-            colors = OutlinedButtonDefaults.outlinedButtonColors(
-                contentColor = if (hasScores) AccentBlue else MaterialTheme.colorScheme.onSurfaceVariant
+            colors = ButtonColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
             )
         ) {
             Icon(
@@ -265,7 +263,6 @@ private fun MenuButtons(
             )
         }
 
-        // Settings Button
         OutlinedButton(
             onClick = onNavigateToSettings,
             modifier = Modifier

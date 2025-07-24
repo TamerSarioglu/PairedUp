@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.ui.unit.Constraints
 import androidx.room.Room
 import com.tamersarioglu.pairedup.data.local.database.MemoryGameDatabase
+import com.tamersarioglu.pairedup.data.local.database.dao.ScoreDao
 import com.tamersarioglu.pairedup.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -29,6 +30,10 @@ object DatabaseModule {
             .build()
     }
 
-
+    @Provides
+    @Singleton
+    fun provideScoreDao(database: MemoryGameDatabase): ScoreDao {
+        return database.scoreDao()
+    }
 
 }
