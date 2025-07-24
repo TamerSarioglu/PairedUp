@@ -7,6 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.tamersarioglu.pairedup.domain.model.GameDifficulty
+import com.tamersarioglu.pairedup.presentation.screens.game.GameScreen
+import com.tamersarioglu.pairedup.presentation.screens.gamesetup.GameSetupScreen
+import com.tamersarioglu.pairedup.presentation.screens.home.HomeScreen
+import com.tamersarioglu.pairedup.presentation.screens.scores.ScoresScreen
+import com.tamersarioglu.pairedup.presentation.screens.settings.SettingsScreen
 
 @Composable
 fun MemoryGameNavigation(
