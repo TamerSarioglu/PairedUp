@@ -9,41 +9,44 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.tamersarioglu.pairedup.domain.model.GameSettings
+import com.tamersarioglu.pairedup.domain.usecase.GetSettingsUseCase
+import com.tamersarioglu.pairedup.presentation.navigation.MemoryGameNavigation
 import com.tamersarioglu.pairedup.presentation.ui.theme.PairedUpTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var getSettingsUseCase: GetSettingsUseCase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PairedUpTheme {
+
+            val settings by getSettingsUseCase.getGameSettings().collectAsState(
+                initial = GameSettings()
+            )
+
+            PairedUpTheme(darkTheme = settings.isDarkTheme) {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+
+                    val navController = rememberNavController()
+
+                    MemoryGameNavigation(
+                        navController = navController,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PairedUpTheme {
-        Greeting("Android")
     }
 }
