@@ -37,7 +37,6 @@ fun GameHeader(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Player Name
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.weight(1f)
@@ -56,7 +55,6 @@ fun GameHeader(
                 )
             }
 
-            // Score
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -75,7 +73,6 @@ fun GameHeader(
                 )
             }
 
-            // Timer
             if (showTimer) {
                 Spacer(modifier = Modifier.width(16.dp))
                 Row(

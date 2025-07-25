@@ -39,13 +39,8 @@ class GameViewModel @Inject constructor(
             _uiState.update { it.copy(isLoading = true) }
 
             try {
-                // Load settings first
                 val settings = getSettingsUseCase.getGameSettings().first()
-
-                // Generate cards
                 val cards = generateCardsUseCase.generateCards(difficulty)
-
-                // Initialize game state
                 val gameState = GameState(
                     cards = cards,
                     difficulty = difficulty,
@@ -63,7 +58,6 @@ class GameViewModel @Inject constructor(
                     )
                 }
 
-                // Start timer if enabled
                 if (settings.isTimerEnabled) {
                     startTimer()
                 }
@@ -82,7 +76,6 @@ class GameViewModel @Inject constructor(
     fun onCardClick(clickedCard: Card) {
         val currentState = _uiState.value
 
-        // Check if interaction is allowed
         if (!currentState.canInteract ||
             clickedCard.isFlipped ||
             clickedCard.isMatched ||
@@ -90,7 +83,6 @@ class GameViewModel @Inject constructor(
             return
         }
 
-        // Cancel any pending card flip job
         cardFlipJob?.cancel()
 
         val updatedCards = currentState.gameState.cards.map { card ->
@@ -116,7 +108,6 @@ class GameViewModel @Inject constructor(
             )
         }
 
-        // Check for match when two cards are flipped
         if (flippedCards.size == 2) {
             checkForMatch(flippedCards)
         }
@@ -129,12 +120,10 @@ class GameViewModel @Inject constructor(
 
         cardFlipJob = viewModelScope.launch {
             if (isMatch) {
-                // Match found - delay then mark as matched
                 delayedExecution(Constants.CARD_MATCH_DELAY) {
                     handleMatch(card1, card2)
                 }
             } else {
-                // No match - delay then flip back
                 delayedExecution(Constants.CARD_MISMATCH_DELAY) {
                     handleMismatch(card1, card2)
                 }
@@ -154,7 +143,6 @@ class GameViewModel @Inject constructor(
         val matchedPairs = currentState.matchedPairs + 1
         val totalPairs = currentState.difficulty.uniqueNumbers
 
-        // Calculate current score
         val timeElapsed = if (currentState.isTimerEnabled) {
             Constants.GAME_TIME_LIMIT - currentState.timeLeft
         } else 0
@@ -185,7 +173,6 @@ class GameViewModel @Inject constructor(
             )
         }
 
-        // Stop timer if game is won
         if (gameStatus == GameStatus.WON) {
             stopTimer()
         }
@@ -224,7 +211,6 @@ class GameViewModel @Inject constructor(
                     )
                 }
 
-                // Check if time is up
                 if (newTimeLeft <= 0) {
                     handleTimeUp()
                 }

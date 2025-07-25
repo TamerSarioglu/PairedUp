@@ -49,7 +49,6 @@ fun GameResultDialog(
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Result Icon and Title
                 if (isWon) {
                     Icon(
                         imageVector = Icons.Default.EmojiEvents,
@@ -98,7 +97,6 @@ fun GameResultDialog(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Game Statistics
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -146,7 +144,6 @@ fun GameResultDialog(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Action Buttons
                 if (isWon) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -199,16 +196,16 @@ fun GameResultDialog(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         OutlinedButton(
-                            onClick = onGoHome,
+                            onClick = onSaveScore,
                             modifier = Modifier.weight(1f)
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Home,
+                                imageVector = Icons.Default.Save,
                                 contentDescription = null,
                                 modifier = Modifier.size(18.dp)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("Ana Sayfa")
+                            Text("Kaydet")
                         }
 
                         Button(
@@ -221,8 +218,23 @@ fun GameResultDialog(
                                 modifier = Modifier.size(18.dp)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("Tekrar Oyna")
+                            Text("Tekrar")
                         }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    TextButton(
+                        onClick = onGoHome,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Home,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text("Ana Sayfa")
                     }
                 }
             }

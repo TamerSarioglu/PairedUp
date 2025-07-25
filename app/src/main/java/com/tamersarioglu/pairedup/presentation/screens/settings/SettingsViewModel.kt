@@ -6,6 +6,7 @@ import com.tamersarioglu.pairedup.domain.usecase.GetSettingsUseCase
 import com.tamersarioglu.pairedup.domain.usecase.SaveScoreUseCase
 import com.tamersarioglu.pairedup.domain.usecase.SaveSettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -87,7 +88,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun updateGameTimeLimit(timeLimit: Int) {
-        if (timeLimit in 30..300) { // 30 seconds to 5 minutes
+        if (timeLimit in 30..300) {
             updateSetting(
                 updateAction = { saveSettingsUseCase.setGameTimeLimit(timeLimit) },
                 successMessage = "Oyun süresi ${timeLimit} saniye olarak ayarlandı"
@@ -117,8 +118,7 @@ class SettingsViewModel @Inject constructor(
                     )
                 }
 
-                // Clear success message after 3 seconds
-                kotlinx.coroutines.delay(3000)
+                delay(3000)
                 _uiState.update { it.copy(successMessage = null) }
 
             } catch (e: Exception) {
@@ -161,8 +161,7 @@ class SettingsViewModel @Inject constructor(
                     )
                 }
 
-                // Clear success message after 3 seconds
-                kotlinx.coroutines.delay(3000)
+                delay(3000)
                 _uiState.update { it.copy(successMessage = null) }
 
             } catch (e: Exception) {
@@ -190,8 +189,7 @@ class SettingsViewModel @Inject constructor(
                     )
                 }
 
-                // Clear success message after 3 seconds
-                kotlinx.coroutines.delay(3000)
+                delay(3000)
                 _uiState.update { it.copy(successMessage = null) }
 
             } catch (e: Exception) {

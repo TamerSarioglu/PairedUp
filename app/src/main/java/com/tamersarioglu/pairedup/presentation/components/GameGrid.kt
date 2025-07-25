@@ -21,8 +21,8 @@ fun GameGrid(
     isEnabled: Boolean = true
 ) {
     val columns = when (difficulty) {
-        GameDifficulty.EASY -> 4 // 4x4 grid for 16 cards
-        GameDifficulty.HARD -> 4 // 4x6 grid for 24 cards
+        GameDifficulty.EASY -> 4
+        GameDifficulty.HARD -> 4
     }
 
     LazyVerticalGrid(

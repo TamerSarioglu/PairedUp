@@ -45,13 +45,11 @@ fun GameScreen(
     val soundManager = remember { GameSoundManager(context) }
     val vibrationManager = remember { VibrationManager(context) }
 
-    // Initialize game
     LaunchedEffect(playerName, difficulty) {
         viewModel.initializeGame(playerName, difficulty)
         soundManager.initialize()
     }
 
-    // Handle back button
     BackHandler {
         if (uiState.gameState.gameStatus == GameStatus.PLAYING) {
             showExitDialog = true
@@ -60,7 +58,6 @@ fun GameScreen(
         }
     }
 
-    // Show loading screen
     if (uiState.isLoading) {
         LoadingScreen(message = "Oyun yükleniyor...")
         return
@@ -115,7 +112,6 @@ fun GameScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // Game Header
             GameHeader(
                 playerName = uiState.gameState.playerName,
                 score = uiState.gameState.score,
@@ -123,7 +119,6 @@ fun GameScreen(
                 showTimer = uiState.gameState.isTimerEnabled
             )
 
-            // Game Status Info
             GameStatusBar(
                 gameStatus = uiState.gameState.gameStatus,
                 matchedPairs = uiState.gameState.matchedPairs,
@@ -131,7 +126,6 @@ fun GameScreen(
                 attempts = uiState.gameState.attempts
             )
 
-            // Game Grid
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -143,13 +137,11 @@ fun GameScreen(
                     difficulty = uiState.gameState.difficulty,
                     onCardClick = { card ->
                         viewModel.onCardClick(card)
-                        // Add haptic feedback
                         vibrationManager.vibrateOnMatch()
                     },
                     isEnabled = uiState.canInteract
                 )
 
-                // Overlay for paused state
                 if (uiState.gameState.gameStatus == GameStatus.PAUSED) {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
@@ -207,7 +199,6 @@ fun GameScreen(
         }
     }
 
-    // Game Result Dialog
     if (uiState.showResultDialog) {
         GameResultDialog(
             isWon = uiState.gameState.gameStatus == GameStatus.WON,
@@ -215,7 +206,7 @@ fun GameScreen(
             timeElapsed = if (uiState.gameState.isTimerEnabled) {
                 60 - uiState.gameState.timeLeft
             } else {
-                uiState.gameState.attempts * 2 // Estimate based on attempts
+                uiState.gameState.attempts * 2
             },
             attempts = uiState.gameState.attempts,
             difficulty = uiState.gameState.difficulty,
@@ -232,10 +223,9 @@ fun GameScreen(
         )
     }
 
-    // Pause Dialog
     if (showPauseDialog) {
         AlertDialog(
-            onDismissRequest = { /* Prevent dismissal */ },
+            onDismissRequest = {  },
             title = {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -275,7 +265,6 @@ fun GameScreen(
         )
     }
 
-    // Exit Confirmation Dialog
     if (showExitDialog) {
         AlertDialog(
             onDismissRequest = { showExitDialog = false },
@@ -318,7 +307,6 @@ fun GameScreen(
         )
     }
 
-    // Error Snackbar
     uiState.error?.let { error ->
         LaunchedEffect(error) {
             kotlinx.coroutines.delay(3000)
@@ -326,7 +314,6 @@ fun GameScreen(
         }
     }
 
-    // Score saved success
     if (uiState.scoreSaved) {
         LaunchedEffect(Unit) {
             onNavigateToScores()
@@ -363,7 +350,6 @@ private fun GameStatusBar(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Progress
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -380,7 +366,6 @@ private fun GameStatusBar(
                 )
             }
 
-            // Divider
             HorizontalDivider(
                 modifier = Modifier
                     .height(32.dp)
@@ -389,7 +374,6 @@ private fun GameStatusBar(
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
             )
 
-            // Attempts
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -432,7 +416,6 @@ private fun GameStatusBar(
                     color = statusColor
                 )
 
-                // Progress bar for matched pairs
                 LinearProgressIndicator(
                     progress = { if (totalPairs > 0) matchedPairs.toFloat() / totalPairs else 0f },
                     modifier = Modifier

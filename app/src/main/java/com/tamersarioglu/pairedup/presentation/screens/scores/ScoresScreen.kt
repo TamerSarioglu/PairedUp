@@ -85,7 +85,6 @@ fun ScoresScreen(
                 .padding(paddingValues)
         ) {
             if (!uiState.isEmpty) {
-                // Filter Section
                 FilterSection(
                     selectedDifficulty = uiState.selectedDifficulty,
                     onFilterChange = viewModel::filterByDifficulty,
@@ -93,14 +92,12 @@ fun ScoresScreen(
                     filteredScores = uiState.displayScores.size
                 )
 
-                // Statistics Card
                 ScoreStatisticsCard(
                     scores = uiState.displayScores,
                     selectedDifficulty = uiState.selectedDifficulty
                 )
             }
 
-            // Scores List
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -162,7 +159,6 @@ fun ScoresScreen(
         }
     }
 
-    // Delete All Confirmation Dialog
     if (uiState.showDeleteAllDialog) {
         AlertDialog(
             onDismissRequest = { viewModel.hideDeleteAllDialog() },
@@ -200,7 +196,6 @@ fun ScoresScreen(
         )
     }
 
-    // Error handling
     uiState.error?.let { error ->
         LaunchedEffect(error) {
             kotlinx.coroutines.delay(5000)

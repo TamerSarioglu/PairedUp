@@ -237,7 +237,6 @@ private fun MenuButtons(
             )
         }
 
-        // Scores Button
         OutlinedButton(
             onClick = onNavigateToScores,
             modifier = Modifier

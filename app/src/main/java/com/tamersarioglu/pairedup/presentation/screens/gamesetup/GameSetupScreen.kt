@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -42,10 +43,6 @@ fun GameSetupScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-    }
 
     if (uiState.isLoading) {
         LoadingScreen(message = "Oyun hazırlanıyor...")
@@ -128,7 +125,6 @@ fun GameSetupScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Player Name Input Section
             PlayerNameSection(
                 playerName = uiState.playerName,
                 isValid = uiState.isPlayerNameValid,
@@ -139,18 +135,15 @@ fun GameSetupScreen(
                 }
             )
 
-            // Difficulty Selection Section
             DifficultySelector(
                 selectedDifficulty = uiState.selectedDifficulty,
                 onDifficultySelected = viewModel::selectDifficulty
             )
 
-            // Game Preview Card
             GamePreviewCard(
                 difficulty = uiState.selectedDifficulty
             )
 
-            // Error Message
             uiState.error?.let { error ->
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -353,7 +346,7 @@ private fun GamePreviewCard(
 
 @Composable
 private fun GameInfoRow(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     label: String,
     value: String,
     modifier: Modifier = Modifier

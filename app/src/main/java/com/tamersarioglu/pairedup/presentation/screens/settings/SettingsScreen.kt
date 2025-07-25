@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -66,7 +67,6 @@ fun SettingsScreen(
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Theme Settings Section
             SettingsSection(
                 title = "🎨 Görünüm Ayarları",
                 icon = Icons.Default.Palette
@@ -82,7 +82,6 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Game Settings Section
             SettingsSection(
                 title = "🎮 Oyun Ayarları",
                 icon = Icons.Default.Games
@@ -114,7 +113,6 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Data Management Section
             SettingsSection(
                 title = "🗂️ Veri Yönetimi",
                 icon = Icons.Default.Storage
@@ -138,7 +136,6 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // App Info Section
             SettingsSection(
                 title = "ℹ️ Uygulama Bilgisi",
                 icon = Icons.Default.Info
@@ -146,7 +143,6 @@ fun SettingsScreen(
                 AppInfoCard()
             }
 
-            // Success/Error Messages
             uiState.successMessage?.let { message ->
                 LaunchedEffect(message) {
                     kotlinx.coroutines.delay(3000)
@@ -235,7 +231,6 @@ fun SettingsScreen(
         }
     }
 
-    // Reset Settings Confirmation Dialog
     if (uiState.showResetDialog) {
         AlertDialog(
             onDismissRequest = { viewModel.hideResetDialog() },
@@ -273,7 +268,6 @@ fun SettingsScreen(
         )
     }
 
-    // Loading overlay for saving operations
     if (uiState.isSaving) {
         Box(
             modifier = Modifier
@@ -308,14 +302,13 @@ fun SettingsScreen(
 @Composable
 private fun SettingsSection(
     title: String,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
-        // Section Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -337,7 +330,6 @@ private fun SettingsSection(
             )
         }
 
-        // Section Content
         Column {
             content()
         }
@@ -421,7 +413,7 @@ private fun AppInfoCard(
 
 @Composable
 private fun InfoItem(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     label: String,
     value: String,
     modifier: Modifier = Modifier

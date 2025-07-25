@@ -86,7 +86,6 @@ class ScoresViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 saveScoreUseCase.deleteScoreById(scoreId)
-                // Scores will be automatically updated via Flow
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(error = "Skor silinirken hata: ${e.message}")
@@ -108,7 +107,6 @@ class ScoresViewModel @Inject constructor(
             try {
                 saveScoreUseCase.deleteAllScores()
                 _uiState.update { it.copy(showDeleteAllDialog = false) }
-                // Scores will be automatically updated via Flow
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(

@@ -21,14 +21,14 @@ class CalculateScoreUseCase @Inject constructor() {
 
     fun calculateTimeBonus(timeLeft: Int, totalTime: Int): Int {
         return if (timeLeft > 0) {
-            (timeLeft * 10) // 10 points per remaining second
+            (timeLeft * 10)
         } else 0
     }
 
     fun calculateEfficiencyBonus(attempts: Int, totalPairs: Int): Int {
         val perfectAttempts = totalPairs
         return if (attempts <= perfectAttempts) {
-            (perfectAttempts - attempts + 1) * 50 // Bonus for efficiency
+            (perfectAttempts - attempts + 1) * 50
         } else 0
     }
 }

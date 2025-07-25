@@ -59,7 +59,6 @@ fun ScoreItem(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Rank Badge
             Box(
                 modifier = Modifier
                     .size(40.dp)
@@ -84,7 +83,6 @@ fun ScoreItem(
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Score Details
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -158,7 +156,6 @@ fun ScoreItem(
                 }
             }
 
-            // Delete Button
             if (onDeleteClick != null) {
                 IconButton(onClick = { showDeleteDialog = true }) {
                     Icon(
@@ -171,7 +168,6 @@ fun ScoreItem(
         }
     }
 
-    // Delete Confirmation Dialog
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },

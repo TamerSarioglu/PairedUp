@@ -20,7 +20,7 @@ data class ScoreEntity(
     val difficulty: String,
 
     @ColumnInfo(name = "time_elapsed")
-    val timeElapsed: Int, // in seconds
+    val timeElapsed: Int,
 
     @ColumnInfo(name = "attempts")
     val attempts: Int,
