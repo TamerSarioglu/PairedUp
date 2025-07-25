@@ -13,10 +13,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tamersarioglu.pairedup.R
 import com.tamersarioglu.pairedup.presentation.components.LoadingScreen
 import com.tamersarioglu.pairedup.presentation.components.settings.SettingsButton
 import com.tamersarioglu.pairedup.presentation.components.settings.SettingsSwitch
@@ -34,7 +36,7 @@ fun SettingsScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (uiState.isLoading) {
-        LoadingScreen(message = "Ayarlar yükleniyor...")
+        LoadingScreen(message = stringResource(R.string.loading_settings))
         return
     }
 
@@ -43,7 +45,7 @@ fun SettingsScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "⚙️ Ayarlar",
+                        text = stringResource(R.string.settings_title),
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -51,7 +53,7 @@ fun SettingsScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Geri"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 }
@@ -68,12 +70,12 @@ fun SettingsScreen(
             Spacer(modifier = modifier.height(8.dp))
 
             SettingsSection(
-                title = "🎨 Görünüm Ayarları",
+                title = stringResource(R.string.appearance_settings),
                 icon = Icons.Default.Palette
             ) {
                 SettingsSwitch(
-                    title = "Koyu Tema",
-                    description = "Uygulamayı koyu temada kullan",
+                    title = stringResource(R.string.dark_theme),
+                    description = stringResource(R.string.dark_theme_description),
                     icon = Icons.Default.DarkMode,
                     checked = uiState.settings.isDarkTheme,
                     onCheckedChange = viewModel::updateDarkTheme
@@ -83,28 +85,28 @@ fun SettingsScreen(
             Spacer(modifier = modifier.height(16.dp))
 
             SettingsSection(
-                title = "🎮 Oyun Ayarları",
+                title = stringResource(R.string.game_settings),
                 icon = Icons.Default.Games
             ) {
                 SettingsSwitch(
-                    title = "Zamanlayıcı",
-                    description = "Oyun süresini sınırla (60 saniye)",
+                    title = stringResource(R.string.timer),
+                    description = stringResource(R.string.timer_description),
                     icon = Icons.Default.Timer,
                     checked = uiState.settings.isTimerEnabled,
                     onCheckedChange = viewModel::updateTimerEnabled
                 )
 
                 SettingsSwitch(
-                    title = "Ses Efektleri",
-                    description = "Oyun seslerini aç/kapat",
+                    title = stringResource(R.string.sound_effects),
+                    description = stringResource(R.string.sound_effects_description),
                     icon = Icons.AutoMirrored.Filled.VolumeUp,
                     checked = uiState.settings.isSoundEnabled,
                     onCheckedChange = viewModel::updateSoundEnabled
                 )
 
                 SettingsSwitch(
-                    title = "Titreşim",
-                    description = "Dokunsal geri bildirim",
+                    title = stringResource(R.string.vibration),
+                    description = stringResource(R.string.vibration_description),
                     icon = Icons.Default.Vibration,
                     checked = uiState.settings.isVibrationEnabled,
                     onCheckedChange = viewModel::updateVibrationEnabled
@@ -114,20 +116,20 @@ fun SettingsScreen(
             Spacer(modifier = modifier.height(16.dp))
 
             SettingsSection(
-                title = "🗂️ Veri Yönetimi",
+                title = stringResource(R.string.data_management),
                 icon = Icons.Default.Storage
             ) {
                 SettingsButton(
-                    title = "Skorları Sil",
-                    description = "Tüm kayıtlı skorları temizle",
+                    title = stringResource(R.string.clear_scores),
+                    description = stringResource(R.string.clear_scores_description),
                     icon = Icons.Default.DeleteSweep,
                     onClick = { viewModel.clearScores() },
                     showArrow = false
                 )
 
                 SettingsButton(
-                    title = "Ayarları Sıfırla",
-                    description = "Tüm ayarları varsayılan değerlere döndür",
+                    title = stringResource(R.string.reset_settings),
+                    description = stringResource(R.string.reset_settings_description),
                     icon = Icons.Default.RestartAlt,
                     onClick = { viewModel.showResetDialog() },
                     showArrow = false
@@ -137,7 +139,7 @@ fun SettingsScreen(
             Spacer(modifier = modifier.height(16.dp))
 
             SettingsSection(
-                title = "ℹ️ Uygulama Bilgisi",
+                title = stringResource(R.string.app_info),
                 icon = Icons.Default.Info
             ) {
                 AppInfoCard()
@@ -177,7 +179,7 @@ fun SettingsScreen(
                         IconButton(onClick = { viewModel.clearSuccessMessage() }) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "Kapat",
+                                contentDescription = stringResource(R.string.close),
                                 tint = AccentGreen
                             )
                         }
@@ -219,7 +221,7 @@ fun SettingsScreen(
                         IconButton(onClick = { viewModel.clearError() }) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "Kapat",
+                                contentDescription = stringResource(R.string.close),
                                 tint = AccentRed
                             )
                         }
@@ -244,11 +246,11 @@ fun SettingsScreen(
                         tint = AccentRed
                     )
                     Spacer(modifier = modifier.width(8.dp))
-                    Text("🔄 Ayarları Sıfırla")
+                    Text(stringResource(R.string.reset_settings_dialog_title))
                 }
             },
             text = {
-                Text("Tüm ayarları varsayılan değerlere sıfırlamak istediğinizden emin misiniz?")
+                Text(stringResource(R.string.reset_settings_dialog_message))
             },
             confirmButton = {
                 Button(
@@ -257,12 +259,12 @@ fun SettingsScreen(
                         containerColor = AccentRed
                     )
                 ) {
-                    Text("Sıfırla")
+                    Text(stringResource(R.string.reset))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { viewModel.hideResetDialog() }) {
-                    Text("İptal")
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )
@@ -290,7 +292,7 @@ fun SettingsScreen(
                     )
                     Spacer(modifier = modifier.width(16.dp))
                     Text(
-                        text = "Kaydediliyor...",
+                        text = stringResource(R.string.saving),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -365,12 +367,12 @@ private fun AppInfoCard(
                 Spacer(modifier = modifier.width(12.dp))
                 Column {
                     Text(
-                        text = "🧠 Memory Game",
+                        text = stringResource(R.string.memory_game_title),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "Versiyon 1.0.0",
+                        text = stringResource(R.string.version),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -380,7 +382,7 @@ private fun AppInfoCard(
             Spacer(modifier = modifier.height(16.dp))
 
             Text(
-                text = "Android Bootcamp bitirme projesi olarak geliştirilmiştir.",
+                text = stringResource(R.string.app_description),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -393,18 +395,18 @@ private fun AppInfoCard(
             ) {
                 InfoItem(
                     icon = Icons.Default.Code,
-                    label = "Kotlin",
-                    value = "1.9.20"
+                    label = stringResource(R.string.kotlin_label),
+                    value = stringResource(R.string.kotlin_version)
                 )
                 InfoItem(
                     icon = Icons.Default.Android,
-                    label = "Compose",
-                    value = "2023.10"
+                    label = stringResource(R.string.compose_label),
+                    value = stringResource(R.string.compose_version)
                 )
                 InfoItem(
                     icon = Icons.Default.Architecture,
-                    label = "MVVM",
-                    value = "Clean"
+                    label = stringResource(R.string.mvvm_label),
+                    value = stringResource(R.string.mvvm_version)
                 )
             }
         }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PairedUp</string>
+    
+    <!-- Common -->
+    <string name="back">Geri</string>
+    <string name="close">Kapat</string>
+    <string name="cancel">İptal</string>
+    <string name="reset">Sıfırla</string>
+    <string name="saving">Kaydediliyor…</string>
+    <string name="loading_settings">Ayarlar yükleniyor…</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_title">⚙️ Ayarlar</string>
+    <string name="appearance_settings">🎨 Görünüm Ayarları</string>
+    <string name="game_settings">🎮 Oyun Ayarları</string>
+    <string name="data_management">🗂️ Veri Yönetimi</string>
+    <string name="app_info">ℹ️ Uygulama Bilgisi</string>
+    
+    <!-- Appearance Settings -->
+    <string name="dark_theme">Koyu Tema</string>
+    <string name="dark_theme_description">Uygulamayı koyu temada kullan</string>
+    
+    <!-- Game Settings -->
+    <string name="timer">Zamanlayıcı</string>
+    <string name="timer_description">Oyun süresini sınırla (60 saniye)</string>
+    <string name="sound_effects">Ses Efektleri</string>
+    <string name="sound_effects_description">Oyun seslerini aç/kapat</string>
+    <string name="vibration">Titreşim</string>
+    <string name="vibration_description">Dokunsal geri bildirim</string>
+    
+    <!-- Data Management -->
+    <string name="clear_scores">Skorları Sil</string>
+    <string name="clear_scores_description">Tüm kayıtlı skorları temizle</string>
+    <string name="reset_settings">Ayarları Sıfırla</string>
+    <string name="reset_settings_description">Tüm ayarları varsayılan değerlere döndür</string>
+    
+    <!-- Reset Dialog -->
+    <string name="reset_settings_dialog_title">🔄 Ayarları Sıfırla</string>
+    <string name="reset_settings_dialog_message">Tüm ayarları varsayılan değerlere sıfırlamak istediğinizden emin misiniz?</string>
+    
+    <!-- App Info -->
+    <string name="memory_game_title">🧠 Memory Game</string>
+    <string name="version">Versiyon 1.0.0</string>
+    <string name="app_description">Android Bootcamp bitirme projesi olarak geliştirilmiştir.</string>
+    <string name="kotlin_label">Kotlin</string>
+    <string name="kotlin_version">1.9.20</string>
+    <string name="compose_label">Compose</string>
+    <string name="compose_version">2023.10</string>
+    <string name="mvvm_label">MVVM</string>
+    <string name="mvvm_version">Clean</string>
+    
+    <!-- Home Screen -->
+    <string name="home_title">🧠 Memory Game</string>
+    <string name="welcome_message">🎮 Memory Game\'e Hoş Geldin!</string>
+    <string name="game_description">Kartları eşleştir ve hafızanı test et!</string>
+    <string name="highest_score">En Yüksek Skor: %d</string>
+    <string name="start_game">🚀 Oyunu Başlat</string>
+    <string name="settings">⚙️ Ayarlar</string>
+    <string name="how_to_play">🎯 Nasıl Oynanır?</string>
+    <string name="bullet_point">•</string>
+    
+    <!-- Game Setup Screen -->
+    <string name="game_setup_title">🎮 Oyun Kurulumu</string>
+    <string name="player_name">👤 Oyuncu Adı</string>
+    <string name="player_name_error">⚠️ En az 2 karakter, sadece harf kullanın</string>
+    <string name="player_name_valid">✅ Oyuncu adı geçerli</string>
+    <string name="player_name_hint">💡 İpucu: En az 2 karakter giriniz</string>
+    <string name="game_preview">🎯 Oyun Önizleme</string>
+    <string name="difficulty_level">Zorluk Seviyesi</string>
+    
+    <!-- Game Screen -->
+    <string name="game_title">🎮 Memory Game</string>
+    <string name="game_paused">⏸️ Oyun Duraklatıldı</string>
+    <string name="game_paused_message">Devam etmek için butona basın</string>
+    <string name="matched_pairs">%1$d/%2$d</string>
+    <string name="matched_label">Eşleşen</string>
+    <string name="attempts_label">Deneme</string>
+    <string name="card_back">?</string>
+    
+    <!-- Game Result Dialog -->
+    <string name="congratulations">🎉 Tebrikler! 🎉</string>
+    <string name="all_cards_matched">Tüm kartları eşleştirdin!</string>
+    <string name="time_up">⏰ Süre Doldu ⏰</string>
+    <string name="try_faster_next_time">Bir dahaki sefere daha hızlı ol!</string>
+    
+    <!-- Scores Screen -->
+    <string name="scores_title">🏆 Skorlarım</string>
+    <string name="filtering">🔍 Filtreleme</string>
+    <string name="scores_count">%1$d/%2$d skor</string>
+    <string name="statistics">📊 İstatistikler</string>
+    <string name="difficulty_name">(%s)</string>
+    <string name="score_points">%d puan</string>
+</resources>

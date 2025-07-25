@@ -1,3 +1,93 @@
 <resources>
     <string name="app_name">PairedUp</string>
+    
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
+    <string name="saving">Saving…</string>
+    <string name="loading_settings">Loading settings…</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_title">⚙️ Settings</string>
+    <string name="appearance_settings">🎨 Appearance Settings</string>
+    <string name="game_settings">🎮 Game Settings</string>
+    <string name="data_management">🗂️ Data Management</string>
+    <string name="app_info">ℹ️ App Information</string>
+    
+    <!-- Appearance Settings -->
+    <string name="dark_theme">Dark Theme</string>
+    <string name="dark_theme_description">Use the app in dark theme</string>
+    
+    <!-- Game Settings -->
+    <string name="timer">Timer</string>
+    <string name="timer_description">Limit game time (60 seconds)</string>
+    <string name="sound_effects">Sound Effects</string>
+    <string name="sound_effects_description">Turn game sounds on/off</string>
+    <string name="vibration">Vibration</string>
+    <string name="vibration_description">Haptic feedback</string>
+    
+    <!-- Data Management -->
+    <string name="clear_scores">Clear Scores</string>
+    <string name="clear_scores_description">Clear all saved scores</string>
+    <string name="reset_settings">Reset Settings</string>
+    <string name="reset_settings_description">Return all settings to default values</string>
+    
+    <!-- Reset Dialog -->
+    <string name="reset_settings_dialog_title">🔄 Reset Settings</string>
+    <string name="reset_settings_dialog_message">Are you sure you want to reset all settings to default values?</string>
+    
+    <!-- App Info -->
+    <string name="memory_game_title">🧠 Memory Game</string>
+    <string name="version">Version 1.0.0</string>
+    <string name="app_description">Developed as an Android Bootcamp graduation project.</string>
+    <string name="kotlin_label">Kotlin</string>
+    <string name="kotlin_version">1.9.20</string>
+    <string name="compose_label">Compose</string>
+    <string name="compose_version">2023.10</string>
+    <string name="mvvm_label">MVVM</string>
+    <string name="mvvm_version">Clean</string>
+    
+    <!-- Home Screen -->
+    <string name="home_title">🧠 Memory Game</string>
+    <string name="welcome_message">🎮 Welcome to Memory Game!</string>
+    <string name="game_description">Match the cards and test your memory!</string>
+    <string name="highest_score">Highest Score: %d</string>
+    <string name="start_game">🚀 Start Game</string>
+    <string name="settings">⚙️ Settings</string>
+    <string name="how_to_play">🎯 How to Play?</string>
+    <string name="bullet_point">•</string>
+    
+    <!-- Game Setup Screen -->
+    <string name="game_setup_title">🎮 Game Setup</string>
+    <string name="player_name">👤 Player Name</string>
+    <string name="player_name_error">⚠️ At least 2 characters, use only letters</string>
+    <string name="player_name_valid">✅ Player name is valid</string>
+    <string name="player_name_hint">💡 Tip: Enter at least 2 characters</string>
+    <string name="game_preview">🎯 Game Preview</string>
+    <string name="difficulty_level">Difficulty Level</string>
+    
+    <!-- Game Screen -->
+    <string name="game_title">🎮 Memory Game</string>
+    <string name="game_paused">⏸️ Game Paused</string>
+    <string name="game_paused_message">Press the button to continue</string>
+    <string name="matched_pairs">%1$d/%2$d</string>
+    <string name="matched_label">Matched</string>
+    <string name="attempts_label">Attempts</string>
+    <string name="card_back">?</string>
+    
+    <!-- Game Result Dialog -->
+    <string name="congratulations">🎉 Congratulations! 🎉</string>
+    <string name="all_cards_matched">You matched all the cards!</string>
+    <string name="time_up">⏰ Time\'s Up ⏰</string>
+    <string name="try_faster_next_time">Try to be faster next time!</string>
+    
+    <!-- Scores Screen -->
+    <string name="scores_title">🏆 My Scores</string>
+    <string name="filtering">🔍 Filtering</string>
+    <string name="scores_count">%1$d/%2$d scores</string>
+    <string name="statistics">📊 Statistics</string>
+    <string name="difficulty_name">(%s)</string>
+    <string name="score_points">%d points</string>
 </resources>
