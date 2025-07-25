@@ -19,6 +19,10 @@
     <!-- Appearance Settings -->
     <string name="dark_theme">Dark Theme</string>
     <string name="dark_theme_description">Use the app in dark theme</string>
+    <string name="language">Language</string>
+    <string name="language_description">Select your preferred language</string>
+    <string name="language_english">English</string>
+    <string name="language_turkish">Türkçe</string>
     
     <!-- Game Settings -->
     <string name="timer">Timer</string>
@@ -90,4 +94,24 @@
     <string name="statistics">📊 Statistics</string>
     <string name="difficulty_name">(%s)</string>
     <string name="score_points">%d points</string>
+    
+    <!-- Error Messages -->
+    <string name="error_loading_settings">Error loading settings: %s</string>
+    <string name="error_unexpected">Unexpected error: %s</string>
+    <string name="error_saving_setting">Error saving setting: %s</string>
+    <string name="error_resetting_settings">Error resetting settings: %s</string>
+    <string name="error_clearing_scores">Error clearing scores: %s</string>
+    <string name="error_game_time_limit">Game time must be between 30-300 seconds</string>
+    
+    <!-- Success Messages -->
+    <string name="success_theme_changed">Theme changed</string>
+    <string name="success_timer_enabled">Timer enabled</string>
+    <string name="success_timer_disabled">Timer disabled</string>
+    <string name="success_sound_enabled">Sound effects enabled</string>
+    <string name="success_sound_disabled">Sound effects disabled</string>
+    <string name="success_vibration_enabled">Vibration enabled</string>
+    <string name="success_vibration_disabled">Vibration disabled</string>
+    <string name="success_game_time_set">Game time set to %d seconds</string>
+    <string name="success_all_settings_reset">All settings reset</string>
+    <string name="success_all_scores_cleared">All scores cleared</string>
 </resources>

@@ -53,16 +53,22 @@ class LanguagePreferences @Inject constructor(
 
     // Synchronous method for immediate access (used in LocaleManager)
     fun getLanguageSync(): Language {
-        return runBlocking {
-            try {
+        return try {
+            // Use runBlocking with a timeout to avoid hanging
+            runBlocking {
+                val preferences = context.languageDataStore.data.catch { 
+                    emit(emptyPreferences()) 
+                }
                 var result = Language.ENGLISH
-                getLanguage().catch { 
-                    emit(Language.ENGLISH) 
-                }.collect { result = it }
+                preferences.collect { prefs ->
+                    val languageCode = prefs[PreferencesKeys.LANGUAGE] ?: Language.ENGLISH.code
+                    result = Language.fromCode(languageCode)
+                }
                 result
-            } catch (e: Exception) {
-                Language.ENGLISH
             }
+        } catch (e: Exception) {
+            // Return default language if there's any issue
+            Language.ENGLISH
         }
     }
 }

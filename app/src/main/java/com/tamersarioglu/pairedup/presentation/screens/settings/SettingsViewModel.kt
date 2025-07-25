@@ -2,6 +2,8 @@ package com.tamersarioglu.pairedup.presentation.screens.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tamersarioglu.pairedup.R
+import com.tamersarioglu.pairedup.data.provider.ResourceProvider
 import com.tamersarioglu.pairedup.domain.usecase.GetSettingsUseCase
 import com.tamersarioglu.pairedup.domain.usecase.SaveScoreUseCase
 import com.tamersarioglu.pairedup.domain.usecase.SaveSettingsUseCase
@@ -15,7 +17,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val getSettingsUseCase: GetSettingsUseCase,
     private val saveSettingsUseCase: SaveSettingsUseCase,
-    private val saveScoreUseCase: SaveScoreUseCase
+    private val saveScoreUseCase: SaveScoreUseCase,
+    private val resourceProvider: ResourceProvider
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SettingsUiState())
@@ -35,7 +38,7 @@ class SettingsViewModel @Inject constructor(
                         _uiState.update {
                             it.copy(
                                 isLoading = false,
-                                error = "Ayarlar yüklenirken hata: ${throwable.message}"
+                                error = resourceProvider.getString(R.string.error_loading_settings, throwable.message ?: "")
                             )
                         }
                     }
@@ -52,7 +55,7 @@ class SettingsViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        error = "Beklenmeyen hata: ${e.message}"
+                        error = resourceProvider.getString(R.string.error_unexpected, e.message ?: "")
                     )
                 }
             }
@@ -62,28 +65,40 @@ class SettingsViewModel @Inject constructor(
     fun updateDarkTheme(isDarkTheme: Boolean) {
         updateSetting(
             updateAction = { saveSettingsUseCase.setDarkTheme(isDarkTheme) },
-            successMessage = "Tema değiştirildi"
+            successMessage = resourceProvider.getString(R.string.success_theme_changed)
         )
     }
 
     fun updateTimerEnabled(isEnabled: Boolean) {
         updateSetting(
             updateAction = { saveSettingsUseCase.setTimerEnabled(isEnabled) },
-            successMessage = if (isEnabled) "Zamanlayıcı açıldı" else "Zamanlayıcı kapatıldı"
+            successMessage = if (isEnabled) {
+                resourceProvider.getString(R.string.success_timer_enabled)
+            } else {
+                resourceProvider.getString(R.string.success_timer_disabled)
+            }
         )
     }
 
     fun updateSoundEnabled(isEnabled: Boolean) {
         updateSetting(
             updateAction = { saveSettingsUseCase.setSoundEnabled(isEnabled) },
-            successMessage = if (isEnabled) "Ses efektleri açıldı" else "Ses efektleri kapatıldı"
+            successMessage = if (isEnabled) {
+                resourceProvider.getString(R.string.success_sound_enabled)
+            } else {
+                resourceProvider.getString(R.string.success_sound_disabled)
+            }
         )
     }
 
     fun updateVibrationEnabled(isEnabled: Boolean) {
         updateSetting(
             updateAction = { saveSettingsUseCase.setVibrationEnabled(isEnabled) },
-            successMessage = if (isEnabled) "Titreşim açıldı" else "Titreşim kapatıldı"
+            successMessage = if (isEnabled) {
+                resourceProvider.getString(R.string.success_vibration_enabled)
+            } else {
+                resourceProvider.getString(R.string.success_vibration_disabled)
+            }
         )
     }
 
@@ -91,11 +106,11 @@ class SettingsViewModel @Inject constructor(
         if (timeLimit in 30..300) {
             updateSetting(
                 updateAction = { saveSettingsUseCase.setGameTimeLimit(timeLimit) },
-                successMessage = "Oyun süresi ${timeLimit} saniye olarak ayarlandı"
+                successMessage = resourceProvider.getString(R.string.success_game_time_set, timeLimit)
             )
         } else {
             _uiState.update {
-                it.copy(error = "Oyun süresi 30-300 saniye arası olmalıdır")
+                it.copy(error = resourceProvider.getString(R.string.error_game_time_limit))
             }
         }
     }
@@ -125,7 +140,7 @@ class SettingsViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isSaving = false,
-                        error = "Ayar kaydedilirken hata: ${e.message}"
+                        error = resourceProvider.getString(R.string.error_saving_setting, e.message ?: "")
                     )
                 }
             }
@@ -157,7 +172,7 @@ class SettingsViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isSaving = false,
-                        successMessage = "Tüm ayarlar sıfırlandı"
+                        successMessage = resourceProvider.getString(R.string.success_all_settings_reset)
                     )
                 }
 
@@ -168,7 +183,7 @@ class SettingsViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isSaving = false,
-                        error = "Ayarlar sıfırlanırken hata: ${e.message}"
+                        error = resourceProvider.getString(R.string.error_resetting_settings, e.message ?: "")
                     )
                 }
             }
@@ -185,7 +200,7 @@ class SettingsViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isSaving = false,
-                        successMessage = "Tüm skorlar silindi"
+                        successMessage = resourceProvider.getString(R.string.success_all_scores_cleared)
                     )
                 }
 
@@ -196,7 +211,7 @@ class SettingsViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isSaving = false,
-                        error = "Skorlar silinirken hata: ${e.message}"
+                        error = resourceProvider.getString(R.string.error_clearing_scores, e.message ?: "")
                     )
                 }
             }
