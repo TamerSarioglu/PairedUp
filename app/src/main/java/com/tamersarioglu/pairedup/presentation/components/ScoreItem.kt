@@ -30,10 +30,10 @@ import java.util.*
 
 @Composable
 fun ScoreItem(
+    modifier: Modifier = Modifier,
     score: Score,
     rank: Int,
-    onDeleteClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    onDeleteClick: (() -> Unit)? = null
 ) {
     var showDeleteDialog by remember { mutableStateOf(false) }
 
@@ -54,13 +54,13 @@ fun ScoreItem(
         )
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .size(40.dp)
                     .clip(RoundedCornerShape(20.dp))
                     .background(
@@ -81,10 +81,10 @@ fun ScoreItem(
                 )
             }
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = modifier.width(16.dp))
 
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = modifier.weight(1f)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -93,9 +93,9 @@ fun ScoreItem(
                         imageVector = Icons.Default.Person,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(16.dp)
+                        modifier = modifier.size(16.dp)
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = modifier.width(4.dp))
                     Text(
                         text = score.playerName,
                         fontWeight = FontWeight.Medium,
@@ -105,7 +105,7 @@ fun ScoreItem(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = modifier.height(4.dp))
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -114,24 +114,24 @@ fun ScoreItem(
                         imageVector = Icons.Default.Star,
                         contentDescription = null,
                         tint = AccentGreen,
-                        modifier = Modifier.size(14.dp)
+                        modifier = modifier.size(14.dp)
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = modifier.width(4.dp))
                     Text(
                         text = "${score.score} puan",
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = modifier.width(16.dp))
 
                     Icon(
                         imageVector = Icons.Default.Timer,
                         contentDescription = null,
                         tint = AccentBlue,
-                        modifier = Modifier.size(14.dp)
+                        modifier = modifier.size(14.dp)
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = modifier.width(4.dp))
                     Text(
                         text = score.timeElapsed.formatTime(),
                         fontSize = 14.sp,
@@ -139,14 +139,14 @@ fun ScoreItem(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = modifier.height(2.dp))
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DifficultyChip(difficulty = score.difficulty)
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = modifier.width(8.dp))
 
                     Text(
                         text = formatDate(score.timestamp),
@@ -194,8 +194,8 @@ fun ScoreItem(
 
 @Composable
 private fun DifficultyChip(
-    difficulty: GameDifficulty,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    difficulty: GameDifficulty
 ) {
     val (text, color) = when (difficulty) {
         GameDifficulty.EASY -> "Kolay" to AccentGreen
@@ -209,7 +209,7 @@ private fun DifficultyChip(
     ) {
         Text(
             text = text,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+            modifier = modifier.padding(horizontal = 8.dp, vertical = 2.dp),
             fontSize = 12.sp,
             color = color,
             fontWeight = FontWeight.Medium

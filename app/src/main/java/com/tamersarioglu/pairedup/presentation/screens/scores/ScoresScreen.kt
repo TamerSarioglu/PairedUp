@@ -28,8 +28,8 @@ import com.tamersarioglu.pairedup.presentation.ui.theme.AccentRed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScoresScreen(
-    onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
+    onNavigateBack: () -> Unit,
     viewModel: ScoresViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -80,7 +80,7 @@ fun ScoresScreen(
         modifier = modifier
     ) { paddingValues ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
@@ -99,7 +99,7 @@ fun ScoresScreen(
             }
 
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .weight(1f)
             ) {
@@ -116,7 +116,7 @@ fun ScoresScreen(
                                     imageVector = Icons.Default.PlayArrow,
                                     contentDescription = null
                                 )
-                                Spacer(modifier = Modifier.width(8.dp))
+                                Spacer(modifier = modifier.width(8.dp))
                                 Text("Oyun Oyna")
                             }
                         }
@@ -137,7 +137,7 @@ fun ScoresScreen(
                 } else {
                     LazyColumn(
                         state = listState,
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = modifier.fillMaxSize(),
                         contentPadding = PaddingValues(bottom = 16.dp),
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
@@ -171,7 +171,7 @@ fun ScoresScreen(
                         contentDescription = null,
                         tint = AccentRed
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = modifier.width(8.dp))
                     Text("🗑️ Tüm Skorları Sil")
                 }
             },
@@ -203,7 +203,7 @@ fun ScoresScreen(
         }
 
         Card(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             colors = CardDefaults.cardColors(
@@ -211,7 +211,7 @@ fun ScoresScreen(
             )
         ) {
             Row(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -221,11 +221,11 @@ fun ScoresScreen(
                     contentDescription = null,
                     tint = AccentRed
                 )
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = modifier.width(12.dp))
                 Text(
                     text = error,
                     color = AccentRed,
-                    modifier = Modifier.weight(1f)
+                    modifier = modifier.weight(1f)
                 )
                 IconButton(onClick = { viewModel.clearError() }) {
                     Icon(
@@ -241,11 +241,11 @@ fun ScoresScreen(
 
 @Composable
 private fun FilterSection(
+    modifier: Modifier = Modifier,
     selectedDifficulty: GameDifficulty?,
     onFilterChange: (GameDifficulty?) -> Unit,
     totalScores: Int,
-    filteredScores: Int,
-    modifier: Modifier = Modifier
+    filteredScores: Int
 ) {
     Card(
         modifier = modifier
@@ -256,7 +256,7 @@ private fun FilterSection(
         )
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
@@ -268,13 +268,13 @@ private fun FilterSection(
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = modifier.width(8.dp))
                 Text(
                     text = "🔍 Filtreleme",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = modifier.weight(1f))
                 Text(
                     text = "$filteredScores/$totalScores skor",
                     style = MaterialTheme.typography.bodySmall,
@@ -282,7 +282,7 @@ private fun FilterSection(
                 )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = modifier.height(12.dp))
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -295,7 +295,7 @@ private fun FilterSection(
                         Icon(
                             imageVector = Icons.Default.SelectAll,
                             contentDescription = null,
-                            modifier = Modifier.size(18.dp)
+                            modifier = modifier.size(18.dp)
                         )
                     }
                 )
@@ -308,7 +308,7 @@ private fun FilterSection(
                         Icon(
                             imageVector = Icons.Default.SentimentSatisfied,
                             contentDescription = null,
-                            modifier = Modifier.size(18.dp)
+                            modifier = modifier.size(18.dp)
                         )
                     }
                 )
@@ -321,7 +321,7 @@ private fun FilterSection(
                         Icon(
                             imageVector = Icons.Default.FlashOn,
                             contentDescription = null,
-                            modifier = Modifier.size(18.dp)
+                            modifier = modifier.size(18.dp)
                         )
                     }
                 )
@@ -332,9 +332,9 @@ private fun FilterSection(
 
 @Composable
 private fun ScoreStatisticsCard(
+    modifier: Modifier = Modifier,
     scores: List<Score>,
-    selectedDifficulty: GameDifficulty?,
-    modifier: Modifier = Modifier
+    selectedDifficulty: GameDifficulty?
 ) {
     if (scores.isEmpty()) return
 
@@ -352,7 +352,7 @@ private fun ScoreStatisticsCard(
         )
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
@@ -364,14 +364,14 @@ private fun ScoreStatisticsCard(
                     contentDescription = null,
                     tint = AccentGreen
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = modifier.width(8.dp))
                 Text(
                     text = "📊 İstatistikler",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 if (selectedDifficulty != null) {
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = modifier.width(8.dp))
                     Text(
                         text = "(${selectedDifficulty.name})",
                         style = MaterialTheme.typography.bodySmall,
@@ -380,10 +380,10 @@ private fun ScoreStatisticsCard(
                 }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = modifier.height(12.dp))
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 StatItem(
@@ -416,10 +416,10 @@ private fun ScoreStatisticsCard(
 
 @Composable
 private fun StatItem(
+    modifier: Modifier = Modifier,
     label: String,
     value: String,
-    icon: ImageVector,
-    modifier: Modifier = Modifier
+    icon: ImageVector
 ) {
     Column(
         modifier = modifier,
@@ -429,9 +429,9 @@ private fun StatItem(
             imageVector = icon,
             contentDescription = null,
             tint = AccentGreen,
-            modifier = Modifier.size(16.dp)
+            modifier = modifier.size(16.dp)
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = modifier.height(4.dp))
         Text(
             text = value,
             style = MaterialTheme.typography.titleSmall,

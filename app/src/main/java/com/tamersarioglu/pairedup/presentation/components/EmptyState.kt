@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun EmptyState(
+    modifier: Modifier = Modifier,
     title: String,
     description: String,
     icon: ImageVector = Icons.Default.SentimentDissatisfied,
-    modifier: Modifier = Modifier,
     actionButton: @Composable (() -> Unit)? = null
 ) {
     Column(
@@ -30,10 +30,10 @@ fun EmptyState(
             imageVector = icon,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.size(64.dp)
+            modifier = modifier.size(64.dp)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = modifier.height(16.dp))
 
         Text(
             text = title,
@@ -42,18 +42,18 @@ fun EmptyState(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = modifier.height(8.dp))
 
         Text(
             text = description,
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(horizontal = 32.dp)
+            modifier = modifier.padding(horizontal = 32.dp)
         )
 
         if (actionButton != null) {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = modifier.height(24.dp))
             actionButton()
         }
     }

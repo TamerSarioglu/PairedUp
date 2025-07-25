@@ -31,11 +31,11 @@ import com.tamersarioglu.pairedup.utils.VibrationManager
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameScreen(
+    modifier: Modifier = Modifier,
     playerName: String,
     difficulty: GameDifficulty,
     onNavigateBack: () -> Unit,
     onNavigateToScores: () -> Unit,
-    modifier: Modifier = Modifier,
     viewModel: GameViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -108,7 +108,7 @@ fun GameScreen(
         modifier = modifier
     ) { paddingValues ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
@@ -127,7 +127,7 @@ fun GameScreen(
             )
 
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .weight(1f),
                 contentAlignment = Alignment.Center
@@ -144,7 +144,7 @@ fun GameScreen(
 
                 if (uiState.gameState.gameStatus == GameStatus.PAUSED) {
                     Surface(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
                     ) {
                         Box(
@@ -156,27 +156,27 @@ fun GameScreen(
                                 )
                             ) {
                                 Column(
-                                    modifier = Modifier.padding(24.dp),
+                                    modifier = modifier.padding(24.dp),
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Pause,
                                         contentDescription = null,
                                         tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(48.dp)
+                                        modifier = modifier.size(48.dp)
                                     )
-                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Spacer(modifier = modifier.height(16.dp))
                                     Text(
                                         text = "⏸️ Oyun Duraklatıldı",
                                         style = MaterialTheme.typography.headlineSmall,
                                         fontWeight = FontWeight.Bold
                                     )
-                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Spacer(modifier = modifier.height(8.dp))
                                     Text(
                                         text = "Devam etmek için butona basın",
                                         style = MaterialTheme.typography.bodyMedium
                                     )
-                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Spacer(modifier = modifier.height(16.dp))
                                     Button(
                                         onClick = {
                                             viewModel.resumeGame()
@@ -187,7 +187,7 @@ fun GameScreen(
                                             imageVector = Icons.Default.PlayArrow,
                                             contentDescription = null
                                         )
-                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Spacer(modifier = modifier.width(8.dp))
                                         Text("Devam Et")
                                     }
                                 }
@@ -235,7 +235,7 @@ fun GameScreen(
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = modifier.width(8.dp))
                     Text("⏸️ Oyun Duraklatıldı")
                 }
             },
@@ -277,7 +277,7 @@ fun GameScreen(
                         contentDescription = null,
                         tint = AccentRed
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = modifier.width(8.dp))
                     Text("🚪 Oyundan Çık")
                 }
             },
@@ -323,11 +323,11 @@ fun GameScreen(
 
 @Composable
 private fun GameStatusBar(
+    modifier: Modifier = Modifier,
     gameStatus: GameStatus,
     matchedPairs: Int,
     totalPairs: Int,
-    attempts: Int,
-    modifier: Modifier = Modifier
+    attempts: Int
 ) {
     Card(
         modifier = modifier
@@ -344,7 +344,7 @@ private fun GameStatusBar(
         )
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
@@ -367,7 +367,7 @@ private fun GameStatusBar(
             }
 
             HorizontalDivider(
-                modifier = Modifier
+                modifier = modifier
                     .height(32.dp)
                     .width(1.dp),
                 thickness = DividerDefaults.Thickness,
@@ -391,7 +391,7 @@ private fun GameStatusBar(
             }
 
             HorizontalDivider(
-                modifier = Modifier
+                modifier = modifier
                     .height(32.dp)
                     .width(1.dp),
                 thickness = DividerDefaults.Thickness,
@@ -418,7 +418,7 @@ private fun GameStatusBar(
 
                 LinearProgressIndicator(
                     progress = { if (totalPairs > 0) matchedPairs.toFloat() / totalPairs else 0f },
-                    modifier = Modifier
+                    modifier = modifier
                         .width(60.dp)
                         .padding(top = 4.dp),
                     color = AccentGreen,

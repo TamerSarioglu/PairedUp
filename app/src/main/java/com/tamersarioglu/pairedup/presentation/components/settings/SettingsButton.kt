@@ -14,11 +14,11 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SettingsButton(
+    modifier: Modifier = Modifier,
     title: String,
     description: String? = null,
     icon: ImageVector? = null,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     showArrow: Boolean = true
 ) {
     Card(
@@ -29,7 +29,7 @@ fun SettingsButton(
         onClick = onClick
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -39,13 +39,13 @@ fun SettingsButton(
                     imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(24.dp)
+                    modifier = modifier.size(24.dp)
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = modifier.width(16.dp))
             }
 
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = modifier.weight(1f)
             ) {
                 Text(
                     text = title,
@@ -57,7 +57,7 @@ fun SettingsButton(
                         text = description,
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 2.dp)
+                        modifier = modifier.padding(top = 2.dp)
                     )
                 }
             }

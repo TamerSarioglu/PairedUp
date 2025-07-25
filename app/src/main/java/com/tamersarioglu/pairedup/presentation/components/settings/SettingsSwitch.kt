@@ -12,12 +12,12 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SettingsSwitch(
+    modifier: Modifier = Modifier,
     title: String,
     description: String? = null,
     icon: ImageVector? = null,
     checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    onCheckedChange: (Boolean) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -26,7 +26,7 @@ fun SettingsSwitch(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -36,13 +36,13 @@ fun SettingsSwitch(
                     imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(24.dp)
+                    modifier = modifier.size(24.dp)
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = modifier.width(16.dp))
             }
 
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = modifier.weight(1f)
             ) {
                 Text(
                     text = title,
@@ -54,7 +54,7 @@ fun SettingsSwitch(
                         text = description,
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 2.dp)
+                        modifier = modifier.padding(top = 2.dp)
                     )
                 }
             }

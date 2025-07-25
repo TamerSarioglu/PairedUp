@@ -11,8 +11,8 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun LoadingScreen(
-    message: String = "Yükleniyor...",
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    message: String = "Yükleniyor..."
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -20,10 +20,10 @@ fun LoadingScreen(
         verticalArrangement = Arrangement.Center
     ) {
         CircularProgressIndicator(
-            modifier = Modifier.size(48.dp),
+            modifier = modifier.size(48.dp),
             color = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = modifier.height(16.dp))
         Text(
             text = message,
             fontSize = 16.sp,

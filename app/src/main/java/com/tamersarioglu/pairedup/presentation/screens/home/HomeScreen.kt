@@ -10,7 +10,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -18,7 +17,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tamersarioglu.pairedup.presentation.components.LoadingScreen
-import com.tamersarioglu.pairedup.presentation.ui.theme.AccentBlue
 import com.tamersarioglu.pairedup.presentation.ui.theme.AccentGreen
 import com.tamersarioglu.pairedup.presentation.ui.theme.AccentRed
 
@@ -26,10 +24,10 @@ import com.tamersarioglu.pairedup.presentation.ui.theme.AccentRed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    modifier: Modifier = Modifier,
     onNavigateToGameSetup: () -> Unit,
     onNavigateToScores: () -> Unit,
     onNavigateToSettings: () -> Unit,
-    modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -65,21 +63,21 @@ fun HomeScreen(
         modifier = modifier
     ) { paddingValues ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = modifier.height(32.dp))
 
             WelcomeSection(
                 hasScores = uiState.hasScores,
                 recentHighScore = uiState.recentHighScore
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = modifier.height(24.dp))
 
             MenuButtons(
                 onNavigateToGameSetup = onNavigateToGameSetup,
@@ -88,7 +86,7 @@ fun HomeScreen(
                 hasScores = uiState.hasScores
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = modifier.height(32.dp))
 
             GameRulesCard()
 
@@ -99,7 +97,7 @@ fun HomeScreen(
                 }
 
                 Card(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
                     colors = CardDefaults.cardColors(
@@ -107,7 +105,7 @@ fun HomeScreen(
                     )
                 ) {
                     Row(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(16.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -117,11 +115,11 @@ fun HomeScreen(
                             contentDescription = null,
                             tint = AccentRed
                         )
-                        Spacer(modifier = Modifier.width(12.dp))
+                        Spacer(modifier = modifier.width(12.dp))
                         Text(
                             text = error,
                             color = AccentRed,
-                            modifier = Modifier.weight(1f)
+                            modifier = modifier.weight(1f)
                         )
                         IconButton(onClick = { viewModel.clearError() }) {
                             Icon(
@@ -134,16 +132,16 @@ fun HomeScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
         }
     }
 }
 
 @Composable
 private fun WelcomeSection(
+    modifier: Modifier = Modifier,
     hasScores: Boolean,
-    recentHighScore: Int,
-    modifier: Modifier = Modifier
+    recentHighScore: Int
 ) {
     Card(
         modifier = modifier
@@ -154,7 +152,7 @@ private fun WelcomeSection(
         )
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -167,7 +165,7 @@ private fun WelcomeSection(
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = modifier.height(8.dp))
 
             Text(
                 text = "Kartları eşleştir ve hafızanı test et!",
@@ -177,7 +175,7 @@ private fun WelcomeSection(
             )
 
             if (hasScores && recentHighScore > 0) {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = modifier.height(16.dp))
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -186,9 +184,9 @@ private fun WelcomeSection(
                         imageVector = Icons.Default.EmojiEvents,
                         contentDescription = null,
                         tint = AccentGreen,
-                        modifier = Modifier.size(20.dp)
+                        modifier = modifier.size(20.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = modifier.width(8.dp))
                     Text(
                         text = "En Yüksek Skor: $recentHighScore",
                         fontSize = 16.sp,
@@ -203,11 +201,11 @@ private fun WelcomeSection(
 
 @Composable
 private fun MenuButtons(
+    modifier: Modifier = Modifier,
     onNavigateToGameSetup: () -> Unit,
     onNavigateToScores: () -> Unit,
     onNavigateToSettings: () -> Unit,
-    hasScores: Boolean,
-    modifier: Modifier = Modifier
+    hasScores: Boolean
 ) {
     Column(
         modifier = modifier
@@ -217,7 +215,7 @@ private fun MenuButtons(
     ) {
         Button(
             onClick = onNavigateToGameSetup,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(56.dp),
             colors = ButtonDefaults.buttonColors(
@@ -227,9 +225,9 @@ private fun MenuButtons(
             Icon(
                 imageVector = Icons.Default.PlayArrow,
                 contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                modifier = modifier.size(24.dp)
             )
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = modifier.width(12.dp))
             Text(
                 text = "🚀 Oyunu Başlat",
                 fontSize = 18.sp,
@@ -239,7 +237,7 @@ private fun MenuButtons(
 
         OutlinedButton(
             onClick = onNavigateToScores,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(56.dp),
             colors = ButtonColors(
@@ -252,9 +250,9 @@ private fun MenuButtons(
             Icon(
                 imageVector = Icons.Default.Leaderboard,
                 contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                modifier = modifier.size(24.dp)
             )
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = modifier.width(12.dp))
             Text(
                 text = if (hasScores) "🏆 Skorlarım" else "📊 Skorlar (Boş)",
                 fontSize = 16.sp,
@@ -264,16 +262,16 @@ private fun MenuButtons(
 
         OutlinedButton(
             onClick = onNavigateToSettings,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(56.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Settings,
                 contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                modifier = modifier.size(24.dp)
             )
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = modifier.width(12.dp))
             Text(
                 text = "⚙️ Ayarlar",
                 fontSize = 16.sp,
@@ -296,7 +294,7 @@ private fun GameRulesCard(
         )
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(20.dp)
         ) {
@@ -307,9 +305,9 @@ private fun GameRulesCard(
                     imageVector = Icons.Default.Info,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(24.dp)
+                    modifier = modifier.size(24.dp)
                 )
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = modifier.width(12.dp))
                 Text(
                     text = "🎯 Nasıl Oynanır?",
                     fontSize = 18.sp,
@@ -317,7 +315,7 @@ private fun GameRulesCard(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
 
             val rules = listOf(
                 "🔢 Kartlarda gizli sayılar var",
@@ -329,14 +327,14 @@ private fun GameRulesCard(
 
             rules.forEach { rule ->
                 Row(
-                    modifier = Modifier.padding(vertical = 4.dp),
+                    modifier = modifier.padding(vertical = 4.dp),
                     verticalAlignment = Alignment.Top
                 ) {
                     Text(
                         text = "•",
                         color = MaterialTheme.colorScheme.primary,
                         fontSize = 16.sp,
-                        modifier = Modifier.padding(end = 8.dp, top = 2.dp)
+                        modifier = modifier.padding(end = 8.dp, top = 2.dp)
                     )
                     Text(
                         text = rule,

@@ -18,10 +18,10 @@ import com.tamersarioglu.pairedup.utils.formatTime
 
 @Composable
 fun GameHeader(
+    modifier: Modifier = Modifier,
     playerName: String,
     score: Int,
     timeLeft: Int,
-    modifier: Modifier = Modifier,
     showTimer: Boolean = true
 ) {
     Card(
@@ -31,7 +31,7 @@ fun GameHeader(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -39,15 +39,15 @@ fun GameHeader(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.weight(1f)
+                modifier = modifier.weight(1f)
             ) {
                 Icon(
                     imageVector = Icons.Default.Person,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(20.dp)
+                    modifier = modifier.size(20.dp)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = modifier.width(8.dp))
                 Text(
                     text = playerName,
                     fontSize = 16.sp,
@@ -62,9 +62,9 @@ fun GameHeader(
                     imageVector = Icons.Default.Star,
                     contentDescription = null,
                     tint = AccentGreen,
-                    modifier = Modifier.size(20.dp)
+                    modifier = modifier.size(20.dp)
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = modifier.width(4.dp))
                 Text(
                     text = score.toString(),
                     fontSize = 18.sp,
@@ -74,7 +74,7 @@ fun GameHeader(
             }
 
             if (showTimer) {
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = modifier.width(16.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -82,9 +82,9 @@ fun GameHeader(
                         imageVector = Icons.Default.Timer,
                         contentDescription = null,
                         tint = AccentBlue,
-                        modifier = Modifier.size(20.dp)
+                        modifier = modifier.size(20.dp)
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = modifier.width(4.dp))
                     Text(
                         text = timeLeft.formatTime(),
                         fontSize = 18.sp,

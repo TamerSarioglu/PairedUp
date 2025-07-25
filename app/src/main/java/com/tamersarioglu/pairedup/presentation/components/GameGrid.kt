@@ -14,10 +14,10 @@ import com.tamersarioglu.pairedup.utils.Constants
 
 @Composable
 fun GameGrid(
+    modifier: Modifier = Modifier,
     cards: List<Card>,
     difficulty: GameDifficulty,
     onCardClick: (Card) -> Unit,
-    modifier: Modifier = Modifier,
     isEnabled: Boolean = true
 ) {
     val columns = when (difficulty) {
@@ -39,35 +39,11 @@ fun GameGrid(
             key = { card -> card.id }
         ) { card ->
             GameCard(
+                modifier = modifier.fillMaxWidth(),
                 card = card,
                 onClick = { onCardClick(card) },
-                isEnabled = isEnabled,
-                modifier = Modifier.fillMaxWidth()
+                isEnabled = isEnabled
             )
         }
     }
-}
-
-@Composable
-fun GameGridPreview(
-    difficulty: GameDifficulty,
-    modifier: Modifier = Modifier
-) {
-    val sampleCards = (1..difficulty.cardCount).map { index ->
-        Card(
-            id = index,
-            number = (index / 2) + 1,
-            position = index,
-            isFlipped = index % 3 == 0,
-            isMatched = index % 5 == 0
-        )
-    }
-
-    GameGrid(
-        cards = sampleCards,
-        difficulty = difficulty,
-        onCardClick = { },
-        modifier = modifier,
-        isEnabled = false
-    )
 }

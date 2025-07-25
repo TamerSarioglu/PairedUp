@@ -36,9 +36,9 @@ import com.tamersarioglu.pairedup.utils.Constants
 
 @Composable
 fun GameCard(
+    modifier: Modifier = Modifier,
     card: Card,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     isEnabled: Boolean = true
 ) {
     var rotationState by remember { mutableFloatStateOf(0f) }
@@ -85,7 +85,7 @@ fun GameCard(
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
+            modifier = modifier.fillMaxSize()
         ) {
             if (rotation > 90f) {
                 Text(
@@ -94,13 +94,13 @@ fun GameCard(
                     fontWeight = FontWeight.Bold,
                     color = if (card.isMatched) Color.White else Color.Black,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.graphicsLayer {
+                    modifier = modifier.graphicsLayer {
                         rotationY = 180f
                     }
                 )
             } else {
                 CardBackPattern(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = modifier.fillMaxSize()
                 )
             }
         }

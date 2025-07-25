@@ -25,9 +25,9 @@ import com.tamersarioglu.pairedup.presentation.ui.theme.AccentRed
 
 @Composable
 fun DifficultySelector(
+    modifier: Modifier = Modifier,
     selectedDifficulty: GameDifficulty,
-    onDifficultySelected: (GameDifficulty) -> Unit,
-    modifier: Modifier = Modifier
+    onDifficultySelected: (GameDifficulty) -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -37,25 +37,25 @@ fun DifficultySelector(
             text = "Zorluk Seviyesi",
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = modifier.padding(bottom = 16.dp)
         )
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             DifficultyCard(
                 difficulty = GameDifficulty.EASY,
                 isSelected = selectedDifficulty == GameDifficulty.EASY,
                 onClick = { onDifficultySelected(GameDifficulty.EASY) },
-                modifier = Modifier.weight(1f)
+                modifier = modifier.weight(1f)
             )
 
             DifficultyCard(
                 difficulty = GameDifficulty.HARD,
                 isSelected = selectedDifficulty == GameDifficulty.HARD,
                 onClick = { onDifficultySelected(GameDifficulty.HARD) },
-                modifier = Modifier.weight(1f)
+                modifier = modifier.weight(1f)
             )
         }
     }
@@ -63,10 +63,10 @@ fun DifficultySelector(
 
 @Composable
 private fun DifficultyCard(
+    modifier: Modifier = Modifier,
     difficulty: GameDifficulty,
     isSelected: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit
 ) {
     val (title, description, icon, color) = when (difficulty) {
         GameDifficulty.EASY -> {
@@ -116,7 +116,7 @@ private fun DifficultyCard(
         )
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -126,10 +126,10 @@ private fun DifficultyCard(
                 imageVector = icon as ImageVector,
                 contentDescription = null,
                 tint = if (isSelected) color as Color else MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(40.dp)
+                modifier = modifier.size(40.dp)
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = modifier.height(12.dp))
 
             Text(
                 text = title as String,
@@ -138,7 +138,7 @@ private fun DifficultyCard(
                 color = if (isSelected) color as Color else MaterialTheme.colorScheme.onSurface
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = modifier.height(8.dp))
 
             Text(
                 text = description as String,

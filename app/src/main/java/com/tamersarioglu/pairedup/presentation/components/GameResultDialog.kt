@@ -25,6 +25,7 @@ import com.tamersarioglu.pairedup.utils.formatTime
 
 @Composable
 fun GameResultDialog(
+    modifier: Modifier = Modifier,
     isWon: Boolean,
     score: Int,
     timeElapsed: Int,
@@ -32,8 +33,7 @@ fun GameResultDialog(
     difficulty: GameDifficulty,
     onSaveScore: () -> Unit,
     onPlayAgain: () -> Unit,
-    onGoHome: () -> Unit,
-    modifier: Modifier = Modifier
+    onGoHome: () -> Unit
 ) {
     Dialog(onDismissRequest = { /* Prevent dismissal */ }) {
         Card(
@@ -44,7 +44,7 @@ fun GameResultDialog(
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
         ) {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -54,9 +54,9 @@ fun GameResultDialog(
                         imageVector = Icons.Default.EmojiEvents,
                         contentDescription = null,
                         tint = AccentGreen,
-                        modifier = Modifier.size(64.dp)
+                        modifier = modifier.size(64.dp)
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = modifier.height(16.dp))
                     Text(
                         text = "🎉 Tebrikler! 🎉",
                         fontSize = 24.sp,
@@ -69,16 +69,16 @@ fun GameResultDialog(
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(top = 8.dp)
+                        modifier = modifier.padding(top = 8.dp)
                     )
                 } else {
                     Icon(
                         imageVector = Icons.Default.Timer,
                         contentDescription = null,
                         tint = AccentRed,
-                        modifier = Modifier.size(64.dp)
+                        modifier = modifier.size(64.dp)
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = modifier.height(16.dp))
                     Text(
                         text = "⏰ Süre Doldu ⏰",
                         fontSize = 24.sp,
@@ -91,20 +91,20 @@ fun GameResultDialog(
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(top = 8.dp)
+                        modifier = modifier.padding(top = 8.dp)
                     )
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = modifier.height(24.dp))
 
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant
                     )
                 ) {
                     Column(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(16.dp)
                     ) {
@@ -142,98 +142,98 @@ fun GameResultDialog(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = modifier.height(24.dp))
 
                 if (isWon) {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         OutlinedButton(
                             onClick = onSaveScore,
-                            modifier = Modifier.weight(1f)
+                            modifier = modifier.weight(1f)
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Save,
                                 contentDescription = null,
-                                modifier = Modifier.size(18.dp)
+                                modifier = modifier.size(18.dp)
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = modifier.width(4.dp))
                             Text("Kaydet")
                         }
 
                         Button(
                             onClick = onPlayAgain,
-                            modifier = Modifier.weight(1f)
+                            modifier = modifier.weight(1f)
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Refresh,
                                 contentDescription = null,
-                                modifier = Modifier.size(18.dp)
+                                modifier = modifier.size(18.dp)
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = modifier.width(4.dp))
                             Text("Tekrar")
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = modifier.height(8.dp))
 
                     TextButton(
                         onClick = onGoHome,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = modifier.fillMaxWidth()
                     ) {
                         Icon(
                             imageVector = Icons.Default.Home,
                             contentDescription = null,
-                            modifier = Modifier.size(18.dp)
+                            modifier = modifier.size(18.dp)
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
+                        Spacer(modifier = modifier.width(4.dp))
                         Text("Ana Sayfa")
                     }
                 } else {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         OutlinedButton(
                             onClick = onSaveScore,
-                            modifier = Modifier.weight(1f)
+                            modifier = modifier.weight(1f)
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Save,
                                 contentDescription = null,
-                                modifier = Modifier.size(18.dp)
+                                modifier = modifier.size(18.dp)
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = modifier.width(4.dp))
                             Text("Kaydet")
                         }
 
                         Button(
                             onClick = onPlayAgain,
-                            modifier = Modifier.weight(1f)
+                            modifier = modifier.weight(1f)
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Refresh,
                                 contentDescription = null,
-                                modifier = Modifier.size(18.dp)
+                                modifier = modifier.size(18.dp)
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = modifier.width(4.dp))
                             Text("Tekrar")
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = modifier.height(8.dp))
 
                     TextButton(
                         onClick = onGoHome,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = modifier.fillMaxWidth()
                     ) {
                         Icon(
                             imageVector = Icons.Default.Home,
                             contentDescription = null,
-                            modifier = Modifier.size(18.dp)
+                            modifier = modifier.size(18.dp)
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
+                        Spacer(modifier = modifier.width(4.dp))
                         Text("Ana Sayfa")
                     }
                 }
@@ -244,11 +244,11 @@ fun GameResultDialog(
 
 @Composable
 private fun GameStatRow(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     label: String,
     value: String,
     color: Color,
-    modifier: Modifier = Modifier,
     isLast: Boolean = false
 ) {
     Row(
@@ -259,15 +259,15 @@ private fun GameStatRow(
             imageVector = icon,
             contentDescription = null,
             tint = color,
-            modifier = Modifier.size(20.dp)
+            modifier = modifier.size(20.dp)
         )
 
-        Spacer(modifier = Modifier.width(12.dp))
+        Spacer(modifier = modifier.width(12.dp))
 
         Text(
             text = label,
             fontSize = 16.sp,
-            modifier = Modifier.weight(1f)
+            modifier = modifier.weight(1f)
         )
 
         Text(
@@ -279,6 +279,6 @@ private fun GameStatRow(
     }
 
     if (!isLast) {
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = modifier.height(12.dp))
     }
 }

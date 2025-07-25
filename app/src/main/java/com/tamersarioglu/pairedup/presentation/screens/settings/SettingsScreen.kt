@@ -27,8 +27,8 @@ import com.tamersarioglu.pairedup.presentation.ui.theme.AccentRed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
+    onNavigateBack: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -60,12 +60,12 @@ fun SettingsScreen(
         modifier = modifier
     ) { paddingValues ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = modifier.height(8.dp))
 
             SettingsSection(
                 title = "🎨 Görünüm Ayarları",
@@ -80,7 +80,7 @@ fun SettingsScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
 
             SettingsSection(
                 title = "🎮 Oyun Ayarları",
@@ -111,7 +111,7 @@ fun SettingsScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
 
             SettingsSection(
                 title = "🗂️ Veri Yönetimi",
@@ -134,7 +134,7 @@ fun SettingsScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
 
             SettingsSection(
                 title = "ℹ️ Uygulama Bilgisi",
@@ -150,7 +150,7 @@ fun SettingsScreen(
                 }
 
                 Card(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(16.dp),
                     colors = CardDefaults.cardColors(
@@ -158,7 +158,7 @@ fun SettingsScreen(
                     )
                 ) {
                     Row(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(16.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -168,11 +168,11 @@ fun SettingsScreen(
                             contentDescription = null,
                             tint = AccentGreen
                         )
-                        Spacer(modifier = Modifier.width(12.dp))
+                        Spacer(modifier = modifier.width(12.dp))
                         Text(
                             text = message,
                             color = AccentGreen,
-                            modifier = Modifier.weight(1f)
+                            modifier = modifier.weight(1f)
                         )
                         IconButton(onClick = { viewModel.clearSuccessMessage() }) {
                             Icon(
@@ -192,7 +192,7 @@ fun SettingsScreen(
                 }
 
                 Card(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(16.dp),
                     colors = CardDefaults.cardColors(
@@ -200,7 +200,7 @@ fun SettingsScreen(
                     )
                 ) {
                     Row(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(16.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -210,11 +210,11 @@ fun SettingsScreen(
                             contentDescription = null,
                             tint = AccentRed
                         )
-                        Spacer(modifier = Modifier.width(12.dp))
+                        Spacer(modifier = modifier.width(12.dp))
                         Text(
                             text = error,
                             color = AccentRed,
-                            modifier = Modifier.weight(1f)
+                            modifier = modifier.weight(1f)
                         )
                         IconButton(onClick = { viewModel.clearError() }) {
                             Icon(
@@ -227,7 +227,7 @@ fun SettingsScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
         }
     }
 
@@ -243,7 +243,7 @@ fun SettingsScreen(
                         contentDescription = null,
                         tint = AccentRed
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = modifier.width(8.dp))
                     Text("🔄 Ayarları Sıfırla")
                 }
             },
@@ -270,7 +270,7 @@ fun SettingsScreen(
 
     if (uiState.isSaving) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(16.dp),
             contentAlignment = Alignment.Center
@@ -281,14 +281,14 @@ fun SettingsScreen(
                 )
             ) {
                 Row(
-                    modifier = Modifier.padding(24.dp),
+                    modifier = modifier.padding(24.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(24.dp),
+                        modifier = modifier.size(24.dp),
                         color = MaterialTheme.colorScheme.primary
                     )
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = modifier.width(16.dp))
                     Text(
                         text = "Kaydediliyor...",
                         style = MaterialTheme.typography.bodyMedium
@@ -301,16 +301,16 @@ fun SettingsScreen(
 
 @Composable
 private fun SettingsSection(
+    modifier: Modifier = Modifier,
     title: String,
     icon: ImageVector,
-    modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -319,9 +319,9 @@ private fun SettingsSection(
                 imageVector = icon,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(20.dp)
+                modifier = modifier.size(20.dp)
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = modifier.width(8.dp))
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
@@ -349,7 +349,7 @@ private fun AppInfoCard(
         )
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
@@ -360,9 +360,9 @@ private fun AppInfoCard(
                     imageVector = Icons.Default.Psychology,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(32.dp)
+                    modifier = modifier.size(32.dp)
                 )
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = modifier.width(12.dp))
                 Column {
                     Text(
                         text = "🧠 Memory Game",
@@ -377,7 +377,7 @@ private fun AppInfoCard(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
 
             Text(
                 text = "Android Bootcamp bitirme projesi olarak geliştirilmiştir.",
@@ -385,10 +385,10 @@ private fun AppInfoCard(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = modifier.height(12.dp))
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 InfoItem(
@@ -413,10 +413,10 @@ private fun AppInfoCard(
 
 @Composable
 private fun InfoItem(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     label: String,
-    value: String,
-    modifier: Modifier = Modifier
+    value: String
 ) {
     Column(
         modifier = modifier,
@@ -426,9 +426,9 @@ private fun InfoItem(
             imageVector = icon,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(16.dp)
+            modifier = modifier.size(16.dp)
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = modifier.height(4.dp))
         Text(
             text = label,
             style = MaterialTheme.typography.bodySmall,

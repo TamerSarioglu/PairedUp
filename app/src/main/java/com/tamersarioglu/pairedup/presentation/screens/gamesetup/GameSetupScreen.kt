@@ -35,9 +35,9 @@ import com.tamersarioglu.pairedup.presentation.ui.theme.AccentRed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameSetupScreen(
+    modifier: Modifier = Modifier,
     onNavigateBack: () -> Unit,
     onStartGame: (String, GameDifficulty) -> Unit,
-    modifier: Modifier = Modifier,
     viewModel: GameSetupViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -73,21 +73,21 @@ fun GameSetupScreen(
                 shadowElevation = 8.dp
             ) {
                 Row(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     OutlinedButton(
                         onClick = onNavigateBack,
-                        modifier = Modifier.weight(1f)
+                        modifier = modifier.weight(1f)
                     ) {
                         Icon(
                             imageVector = Icons.Default.Cancel,
                             contentDescription = null,
-                            modifier = Modifier.size(18.dp)
+                            modifier = modifier.size(18.dp)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = modifier.width(8.dp))
                         Text("İptal")
                     }
 
@@ -99,7 +99,7 @@ fun GameSetupScreen(
                             }
                         },
                         enabled = uiState.canStartGame,
-                        modifier = Modifier.weight(1f),
+                        modifier = modifier.weight(1f),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = AccentGreen
                         )
@@ -107,9 +107,9 @@ fun GameSetupScreen(
                         Icon(
                             imageVector = Icons.Default.PlayArrow,
                             contentDescription = null,
-                            modifier = Modifier.size(18.dp)
+                            modifier = modifier.size(18.dp)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = modifier.width(8.dp))
                         Text("Başlat!")
                     }
                 }
@@ -118,7 +118,7 @@ fun GameSetupScreen(
         modifier = modifier
     ) { paddingValues ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
@@ -146,13 +146,13 @@ fun GameSetupScreen(
 
             uiState.error?.let { error ->
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
                         containerColor = AccentRed.copy(alpha = 0.1f)
                     )
                 ) {
                     Row(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(16.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -162,11 +162,11 @@ fun GameSetupScreen(
                             contentDescription = null,
                             tint = AccentRed
                         )
-                        Spacer(modifier = Modifier.width(12.dp))
+                        Spacer(modifier = modifier.width(12.dp))
                         Text(
                             text = error,
                             color = AccentRed,
-                            modifier = Modifier.weight(1f)
+                            modifier = modifier.weight(1f)
                         )
                         IconButton(onClick = viewModel::clearError) {
                             Icon(
@@ -179,19 +179,19 @@ fun GameSetupScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
         }
     }
 }
 
 @Composable
 private fun PlayerNameSection(
+    modifier: Modifier = Modifier,
     playerName: String,
     isValid: Boolean,
     onNameChange: (String) -> Unit,
     focusRequester: FocusRequester,
-    onImeAction: () -> Unit,
-    modifier: Modifier = Modifier
+    onImeAction: () -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
@@ -200,13 +200,13 @@ private fun PlayerNameSection(
             text = "👤 Oyuncu Adı",
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = modifier.padding(bottom = 8.dp)
         )
 
         OutlinedTextField(
             value = playerName,
             onValueChange = onNameChange,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester),
             label = { Text("Adınızı girin") },
@@ -251,21 +251,21 @@ private fun PlayerNameSection(
                 text = "⚠️ En az 2 karakter, sadece harf kullanın",
                 color = AccentRed,
                 fontSize = 12.sp,
-                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+                modifier = modifier.padding(start = 16.dp, top = 4.dp)
             )
         } else if (isValid) {
             Text(
                 text = "✅ Oyuncu adı geçerli",
                 color = AccentGreen,
                 fontSize = 12.sp,
-                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+                modifier = modifier.padding(start = 16.dp, top = 4.dp)
             )
         } else {
             Text(
                 text = "💡 İpucu: En az 2 karakter giriniz",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
-                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+                modifier = modifier.padding(start = 16.dp, top = 4.dp)
             )
         }
     }
@@ -273,8 +273,8 @@ private fun PlayerNameSection(
 
 @Composable
 private fun GamePreviewCard(
-    difficulty: GameDifficulty,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    difficulty: GameDifficulty
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -283,7 +283,7 @@ private fun GamePreviewCard(
         )
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
@@ -295,7 +295,7 @@ private fun GamePreviewCard(
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = modifier.width(8.dp))
                 Text(
                     text = "🎯 Oyun Önizleme",
                     fontSize = 16.sp,
@@ -303,7 +303,7 @@ private fun GamePreviewCard(
                 )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = modifier.height(12.dp))
 
             val (gridSize, cardCount, estimatedTime) = when (difficulty) {
                 GameDifficulty.EASY -> Triple("4x4", "16", "2-3")
@@ -346,10 +346,10 @@ private fun GamePreviewCard(
 
 @Composable
 private fun GameInfoRow(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     label: String,
-    value: String,
-    modifier: Modifier = Modifier
+    value: String
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -359,13 +359,13 @@ private fun GameInfoRow(
             imageVector = icon,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(16.dp)
+            modifier = modifier.size(16.dp)
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = modifier.width(8.dp))
         Text(
             text = label,
             fontSize = 14.sp,
-            modifier = Modifier.weight(1f)
+            modifier = modifier.weight(1f)
         )
         Text(
             text = value,
