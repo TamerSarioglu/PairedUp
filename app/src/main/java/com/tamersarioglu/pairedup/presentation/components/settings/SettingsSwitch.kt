@@ -1,6 +1,5 @@
 package com.tamersarioglu.pairedup.presentation.components.settings
 
-import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -10,21 +9,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 import com.tamersarioglu.pairedup.domain.model.ErrorType
 import com.tamersarioglu.pairedup.domain.model.SettingState
-import com.tamersarioglu.pairedup.presentation.components.settings.SettingsAnimationConstants
-import com.tamersarioglu.pairedup.presentation.components.settings.AnimationHelpers
-import kotlinx.coroutines.delay
+import com.tamersarioglu.pairedup.utils.SettingsAnimationConstants
+import com.tamersarioglu.pairedup.utils.AnimationHelpers
 
 @Composable
 private fun rememberSettingsAnimationState(

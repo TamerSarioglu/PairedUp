@@ -16,9 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,7 +38,6 @@ fun GameCard(
     onClick: () -> Unit,
     isEnabled: Boolean = true
 ) {
-    var rotationState by remember { mutableFloatStateOf(0f) }
 
     val rotation by animateFloatAsState(
         targetValue = if (card.isFlipped) 180f else 0f,
@@ -49,7 +45,7 @@ fun GameCard(
             durationMillis = Constants.CARD_FLIP_DURATION,
             easing = FastOutSlowInEasing
         ),
-        finishedListener = { rotationState = it },
+        finishedListener = { it },
         label = "card_rotation"
     )
 
