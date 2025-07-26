@@ -26,15 +26,6 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var getSettingsUseCase: GetSettingsUseCase
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase)
-    }
-    
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        recreate()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

@@ -98,6 +98,9 @@
     <string name="error_resetting_settings">Error resetting settings: %s</string>
     <string name="error_clearing_scores">Error clearing scores: %s</string>
     <string name="error_game_time_limit">Game time must be between 30-300 seconds</string>
+    <string name="error_network_connection">Network connection error. Please check your connection and try again.</string>
+    <string name="error_operation_timeout">Operation timed out. Please try again.</string>
+    <string name="error_permission_denied">Permission denied. Please check app permissions.</string>
     
     <!-- Success Messages -->
     <string name="success_theme_changed">Theme changed</string>

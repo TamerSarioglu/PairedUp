@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tamersarioglu.pairedup.R
+import com.tamersarioglu.pairedup.domain.model.SettingType
 import com.tamersarioglu.pairedup.presentation.components.LoadingScreen
 import com.tamersarioglu.pairedup.presentation.components.settings.SettingsButton
 import com.tamersarioglu.pairedup.presentation.components.settings.SettingsSwitch
@@ -78,7 +79,9 @@ fun SettingsScreen(
                     description = stringResource(R.string.dark_theme_description),
                     icon = Icons.Default.DarkMode,
                     checked = uiState.settings.isDarkTheme,
-                    onCheckedChange = viewModel::updateDarkTheme
+                    onCheckedChange = viewModel::updateDarkTheme,
+                    settingState = uiState.darkThemeState,
+                    onRetry = { viewModel.retrySetting(SettingType.DARK_THEME) }
                 )
             }
 
@@ -93,7 +96,9 @@ fun SettingsScreen(
                     description = stringResource(R.string.timer_description),
                     icon = Icons.Default.Timer,
                     checked = uiState.settings.isTimerEnabled,
-                    onCheckedChange = viewModel::updateTimerEnabled
+                    onCheckedChange = viewModel::updateTimerEnabled,
+                    settingState = uiState.timerState,
+                    onRetry = { viewModel.retrySetting(SettingType.TIMER_ENABLED) }
                 )
 
                 SettingsSwitch(
@@ -101,7 +106,9 @@ fun SettingsScreen(
                     description = stringResource(R.string.sound_effects_description),
                     icon = Icons.AutoMirrored.Filled.VolumeUp,
                     checked = uiState.settings.isSoundEnabled,
-                    onCheckedChange = viewModel::updateSoundEnabled
+                    onCheckedChange = viewModel::updateSoundEnabled,
+                    settingState = uiState.soundState,
+                    onRetry = { viewModel.retrySetting(SettingType.SOUND_ENABLED) }
                 )
 
                 SettingsSwitch(
@@ -109,7 +116,9 @@ fun SettingsScreen(
                     description = stringResource(R.string.vibration_description),
                     icon = Icons.Default.Vibration,
                     checked = uiState.settings.isVibrationEnabled,
-                    onCheckedChange = viewModel::updateVibrationEnabled
+                    onCheckedChange = viewModel::updateVibrationEnabled,
+                    settingState = uiState.vibrationState,
+                    onRetry = { viewModel.retrySetting(SettingType.VIBRATION_ENABLED) }
                 )
             }
 
@@ -270,35 +279,7 @@ fun SettingsScreen(
         )
     }
 
-    if (uiState.isSaving) {
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f)
-                )
-            ) {
-                Row(
-                    modifier = modifier.padding(24.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    CircularProgressIndicator(
-                        modifier = modifier.size(24.dp),
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = modifier.width(16.dp))
-                    Text(
-                        text = stringResource(R.string.saving),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-        }
-    }
+
 }
 
 @Composable

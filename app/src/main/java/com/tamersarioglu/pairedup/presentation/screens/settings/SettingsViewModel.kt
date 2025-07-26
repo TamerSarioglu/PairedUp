@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tamersarioglu.pairedup.R
 import com.tamersarioglu.pairedup.data.provider.ResourceProvider
+import com.tamersarioglu.pairedup.domain.model.GameSettings
+import com.tamersarioglu.pairedup.domain.model.SettingType
 import com.tamersarioglu.pairedup.domain.usecase.GetSettingsUseCase
 import com.tamersarioglu.pairedup.domain.usecase.SaveScoreUseCase
 import com.tamersarioglu.pairedup.domain.usecase.SaveSettingsUseCase
@@ -18,7 +20,10 @@ class SettingsViewModel @Inject constructor(
     private val getSettingsUseCase: GetSettingsUseCase,
     private val saveSettingsUseCase: SaveSettingsUseCase,
     private val saveScoreUseCase: SaveScoreUseCase,
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
+    private val updateHandler: SettingsUpdateHandler,
+    private val retryManager: SettingsRetryManager,
+    private val stateManager: SettingsStateManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SettingsUiState())
@@ -63,86 +68,67 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun updateDarkTheme(isDarkTheme: Boolean) {
-        updateSetting(
-            updateAction = { saveSettingsUseCase.setDarkTheme(isDarkTheme) },
-            successMessage = resourceProvider.getString(R.string.success_theme_changed)
+        updateSettingWithState(
+            settingType = SettingType.DARK_THEME,
+            optimisticUpdate = { settings -> settings.copy(isDarkTheme = isDarkTheme) },
+            updateAction = { saveSettingsUseCase.setDarkTheme(isDarkTheme) }
         )
     }
 
     fun updateTimerEnabled(isEnabled: Boolean) {
-        updateSetting(
-            updateAction = { saveSettingsUseCase.setTimerEnabled(isEnabled) },
-            successMessage = if (isEnabled) {
-                resourceProvider.getString(R.string.success_timer_enabled)
-            } else {
-                resourceProvider.getString(R.string.success_timer_disabled)
-            }
+        updateSettingWithState(
+            settingType = SettingType.TIMER_ENABLED,
+            optimisticUpdate = { settings -> settings.copy(isTimerEnabled = isEnabled) },
+            updateAction = { saveSettingsUseCase.setTimerEnabled(isEnabled) }
         )
     }
 
     fun updateSoundEnabled(isEnabled: Boolean) {
-        updateSetting(
-            updateAction = { saveSettingsUseCase.setSoundEnabled(isEnabled) },
-            successMessage = if (isEnabled) {
-                resourceProvider.getString(R.string.success_sound_enabled)
-            } else {
-                resourceProvider.getString(R.string.success_sound_disabled)
-            }
+        updateSettingWithState(
+            settingType = SettingType.SOUND_ENABLED,
+            optimisticUpdate = { settings -> settings.copy(isSoundEnabled = isEnabled) },
+            updateAction = { saveSettingsUseCase.setSoundEnabled(isEnabled) }
         )
     }
 
     fun updateVibrationEnabled(isEnabled: Boolean) {
-        updateSetting(
-            updateAction = { saveSettingsUseCase.setVibrationEnabled(isEnabled) },
-            successMessage = if (isEnabled) {
-                resourceProvider.getString(R.string.success_vibration_enabled)
-            } else {
-                resourceProvider.getString(R.string.success_vibration_disabled)
-            }
+        updateSettingWithState(
+            settingType = SettingType.VIBRATION_ENABLED,
+            optimisticUpdate = { settings -> settings.copy(isVibrationEnabled = isEnabled) },
+            updateAction = { saveSettingsUseCase.setVibrationEnabled(isEnabled) }
         )
     }
 
     fun updateGameTimeLimit(timeLimit: Int) {
         if (timeLimit in 30..300) {
-            updateSetting(
-                updateAction = { saveSettingsUseCase.setGameTimeLimit(timeLimit) },
-                successMessage = resourceProvider.getString(R.string.success_game_time_set, timeLimit)
-            )
+            viewModelScope.launch {
+                _uiState.update { it.copy(error = null, successMessage = null) }
+
+                try {
+                    saveSettingsUseCase.setGameTimeLimit(timeLimit)
+                    
+                    _uiState.update {
+                        it.copy(
+                            settings = it.settings.copy(gameTimeLimit = timeLimit),
+                            successMessage = resourceProvider.getString(R.string.success_game_time_set, timeLimit),
+                            error = null
+                        )
+                    }
+
+                    delay(3000)
+                    _uiState.update { it.copy(successMessage = null) }
+
+                } catch (e: Exception) {
+                    _uiState.update {
+                        it.copy(
+                            error = resourceProvider.getString(R.string.error_saving_setting, e.message ?: "")
+                        )
+                    }
+                }
+            }
         } else {
             _uiState.update {
                 it.copy(error = resourceProvider.getString(R.string.error_game_time_limit))
-            }
-        }
-    }
-
-    private fun updateSetting(
-        updateAction: suspend () -> Unit,
-        successMessage: String
-    ) {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isSaving = true, error = null, successMessage = null) }
-
-            try {
-                updateAction()
-
-                _uiState.update {
-                    it.copy(
-                        isSaving = false,
-                        successMessage = successMessage,
-                        error = null
-                    )
-                }
-
-                delay(3000)
-                _uiState.update { it.copy(successMessage = null) }
-
-            } catch (e: Exception) {
-                _uiState.update {
-                    it.copy(
-                        isSaving = false,
-                        error = resourceProvider.getString(R.string.error_saving_setting, e.message ?: "")
-                    )
-                }
             }
         }
     }
@@ -159,7 +145,6 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update {
                 it.copy(
-                    isSaving = true,
                     showResetDialog = false,
                     error = null,
                     successMessage = null
@@ -171,7 +156,6 @@ class SettingsViewModel @Inject constructor(
 
                 _uiState.update {
                     it.copy(
-                        isSaving = false,
                         successMessage = resourceProvider.getString(R.string.success_all_settings_reset)
                     )
                 }
@@ -182,7 +166,6 @@ class SettingsViewModel @Inject constructor(
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
-                        isSaving = false,
                         error = resourceProvider.getString(R.string.error_resetting_settings, e.message ?: "")
                     )
                 }
@@ -192,14 +175,13 @@ class SettingsViewModel @Inject constructor(
 
     fun clearScores() {
         viewModelScope.launch {
-            _uiState.update { it.copy(isSaving = true, error = null, successMessage = null) }
+            _uiState.update { it.copy(error = null, successMessage = null) }
 
             try {
                 saveScoreUseCase.deleteAllScores()
 
                 _uiState.update {
                     it.copy(
-                        isSaving = false,
                         successMessage = resourceProvider.getString(R.string.success_all_scores_cleared)
                     )
                 }
@@ -210,7 +192,6 @@ class SettingsViewModel @Inject constructor(
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
-                        isSaving = false,
                         error = resourceProvider.getString(R.string.error_clearing_scores, e.message ?: "")
                     )
                 }
@@ -224,5 +205,52 @@ class SettingsViewModel @Inject constructor(
 
     fun clearSuccessMessage() {
         _uiState.update { it.copy(successMessage = null) }
+    }
+
+    private fun updateSettingWithState(
+        settingType: SettingType,
+        optimisticUpdate: (GameSettings) -> GameSettings,
+        updateAction: suspend () -> Unit
+    ) {
+        viewModelScope.launch {
+            updateHandler.performSettingUpdateWithRetry(
+                uiState = _uiState,
+                settingType = settingType,
+                optimisticUpdate = optimisticUpdate,
+                updateAction = updateAction,
+                retryCount = 0
+            )
+        }
+    }
+
+    fun retrySetting(settingType: SettingType) {
+        val currentState = _uiState.value
+        val settingState = retryManager.getSettingState(currentState, settingType)
+        
+        if (!settingState.isRetryAvailable) return
+
+        viewModelScope.launch {
+            val backoffDelay = retryManager.calculateBackoffDelay(settingState.retryCount)
+            delay(backoffDelay)
+
+            val (optimisticUpdate, updateAction) = retryManager.createRetryAction(
+                settingType, 
+                currentState.settings
+            )
+
+            updateHandler.performSettingUpdateWithRetry(
+                uiState = _uiState,
+                settingType = settingType,
+                optimisticUpdate = optimisticUpdate,
+                updateAction = updateAction,
+                retryCount = settingState.retryCount
+            )
+        }
+    }
+
+    fun clearSettingError(settingType: SettingType) {
+        _uiState.update { currentState ->
+            stateManager.clearSettingError(currentState, settingType)
+        }
     }
 }
