@@ -1,7 +1,6 @@
 package com.tamersarioglu.pairedup.utils
 
 import androidx.compose.animation.core.*
-import androidx.compose.animation.core.KeyframesSpecBaseConfig.using
 import androidx.compose.ui.unit.dp
 
 object SettingsAnimationConstants {
