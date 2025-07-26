@@ -22,7 +22,6 @@ object Constants {
     const val SOUND_ENABLED_KEY = "sound_enabled"
     const val VIBRATION_ENABLED_KEY = "vibration_enabled"
     const val GAME_TIME_LIMIT_KEY = "game_time_limit"
-    const val LANGUAGE_KEY = "language"
 
     const val CARD_ELEVATION = 8f
     const val CARD_CORNER_RADIUS = 12f

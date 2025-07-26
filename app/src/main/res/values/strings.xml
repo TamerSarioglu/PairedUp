@@ -19,10 +19,6 @@
     <!-- Appearance Settings -->
     <string name="dark_theme">Dark Theme</string>
     <string name="dark_theme_description">Use the app in dark theme</string>
-    <string name="language">Language</string>
-    <string name="language_description">Select your preferred language</string>
-    <string name="language_english">English</string>
-    <string name="language_turkish">Türkçe</string>
     
     <!-- Game Settings -->
     <string name="timer">Timer</string>

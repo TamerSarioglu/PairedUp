@@ -8,9 +8,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.tamersarioglu.pairedup.domain.model.Language
 import com.tamersarioglu.pairedup.utils.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -32,7 +30,6 @@ class SettingsDataStore @Inject constructor(
         val SOUND_ENABLED = booleanPreferencesKey(Constants.SOUND_ENABLED_KEY)
         val VIBRATION_ENABLED = booleanPreferencesKey(Constants.VIBRATION_ENABLED_KEY)
         val GAME_TIME_LIMIT = intPreferencesKey(Constants.GAME_TIME_LIMIT_KEY)
-        val LANGUAGE = stringPreferencesKey(Constants.LANGUAGE_KEY)
     }
 
     val isDarkTheme: Flow<Boolean> = context.dataStore.data
@@ -95,18 +92,7 @@ class SettingsDataStore @Inject constructor(
             preferences[PreferencesKeys.GAME_TIME_LIMIT] ?: Constants.GAME_TIME_LIMIT
         }
 
-    val language: Flow<Language> = context.dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }
-        .map { preferences ->
-            val languageCode = preferences[PreferencesKeys.LANGUAGE] ?: Language.ENGLISH.code
-            Language.fromCode(languageCode)
-        }
+
 
     suspend fun setDarkTheme(isDarkTheme: Boolean) {
         context.dataStore.edit { preferences ->
@@ -138,11 +124,7 @@ class SettingsDataStore @Inject constructor(
         }
     }
 
-    suspend fun setLanguage(language: Language) {
-        context.dataStore.edit { preferences ->
-            preferences[PreferencesKeys.LANGUAGE] = language.code
-        }
-    }
+
 
     suspend fun resetAllSettings() {
         context.dataStore.edit { preferences ->
