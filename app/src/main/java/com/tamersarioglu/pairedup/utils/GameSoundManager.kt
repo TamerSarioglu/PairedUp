@@ -33,10 +33,7 @@ class GameSoundManager @Inject constructor(
             .build()
 
         soundPool?.let { pool ->
-            // cardFlipSoundId = pool.load(context, R.raw.card_flip, 1)
-            // matchSoundId = pool.load(context, R.raw.match, 1)
-            // gameWonSoundId = pool.load(context, R.raw.game_won, 1)
-            // gameLostSoundId = pool.load(context, R.raw.game_lost, 1)
+
         }
 
         isInitialized = true

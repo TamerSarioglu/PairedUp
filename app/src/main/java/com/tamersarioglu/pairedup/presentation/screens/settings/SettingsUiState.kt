@@ -9,7 +9,6 @@ data class SettingsUiState(
     val showResetDialog: Boolean = false,
     val error: String? = null,
     val successMessage: String? = null,
-    // Individual setting states for per-setting feedback
     val darkThemeState: SettingState = SettingState(),
     val timerState: SettingState = SettingState(),
     val soundState: SettingState = SettingState(),
